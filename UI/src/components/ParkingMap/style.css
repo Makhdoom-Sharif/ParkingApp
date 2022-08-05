@@ -1,0 +1,19 @@
+.button {
+    margin: 30px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    max-width: 70% !important;
+    max-height: 50px;
+    background-color: #000 !important;
+
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* .button:hover {
+    background-color: #000 !important;
+} */
