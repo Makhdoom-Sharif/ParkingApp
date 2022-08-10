@@ -5,6 +5,7 @@ const dotenv = require('dotenv')
 const authRoute = require('./routes/auth')
 const userRoute = require('./routes/user')
 const bookingRoute = require('./routes/booking')
+var cors = require('cors')
 dotenv.config()
 
 
@@ -16,6 +17,7 @@ mongoose.connect(
 }).catch((error) => {
     console.log(error)
 })
+app.use(cors())
 
 app.use(express.json())
 app.use('/api/auth', authRoute)

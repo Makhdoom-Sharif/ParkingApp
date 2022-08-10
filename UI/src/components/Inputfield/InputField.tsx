@@ -8,13 +8,16 @@ type Props = {
     name?: string,
     id?: string,
     required?: boolean,
-    type?: string
+    type?: string,
+    value?: string | number,
+    onChange?: any
 }
 
 
 
 export default function InputField(props: Props) {
-    const { label, focused, name, id, required, type } = props
+    const { label, focused, name, id, required, type, value, onChange } = props
+    // console.log(onChange)
     return (
         <Box
             sx={{
@@ -32,6 +35,8 @@ export default function InputField(props: Props) {
                 name={name}
                 required={required}
                 type={type}
+                value={value}
+                onChange={onChange}
 
             />
         </Box>

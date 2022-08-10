@@ -16,11 +16,12 @@ router.post('/new', verifyTokenAndAuthorization, async (req, res) => {
     } catch (error) {
         res.status(500).json(error)
     }
-})
+}
+)
 
 
 
-// //Delete
+// `//Delete
 // router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 //     try {
 //         await Users.findByIdAndDelete(req.params.id)
