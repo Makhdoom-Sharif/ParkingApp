@@ -84,7 +84,7 @@ export default function TemporaryDrawer() {
     );
 
     return (
-        <div>
+        <div style={{ display: 'none' }} >
             {/* {(['right'] as const).map((anchor) => ( */}
             <React.Fragment key={'right'}>
                 <Button onClick={toggleDrawer('right', true)}><MenuIcon sx={{ fontSize: '2rem' }} /></Button>
