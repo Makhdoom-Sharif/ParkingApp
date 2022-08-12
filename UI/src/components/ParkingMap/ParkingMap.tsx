@@ -5,8 +5,9 @@ import "./style.css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import RangePicker from "./RangePicker/RangePicker";
 import { GetAllPlaces } from "../../apiCalls";
-import { FToken } from "../../requestMethod";
+// import { GetTokenLocal } from "../../requestMethod";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 
 type Props = {};
 type SelectorType = {
@@ -28,15 +29,18 @@ type SelectorType = {
 };
 
 const ParkingPlaces = (props: Props) => {
-  const [IsScreenSwap, setIsScreenSwap] = useState(false);
-  const { allPlaces } = useSelector((state: SelectorType) => state?.user);
-
   // const dispatch = useDispatch();
-  useEffect(() => {
-    // console.log("first===>", allPlaces);
-    // FToken();
-    // GetAllPlaces(dispatch);
-  }, []);
+  const [IsScreenSwap, setIsScreenSwap] = useState(false);
+  const DetailsUser = useSelector((state: SelectorType) => state?.user);
+  const { allPlaces } = DetailsUser;
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   // console.log("first===>", allPlaces);
+  //   GetTokenLocal();
+  //   GetAllPlaces(dispatch);
+  //   // CallT();
+  //   // GetAllPlaces(dispatch);
+  // }, []);
 
   const TimeScreenSwapper = (id: string) => {
     console.log("placeID", id);
@@ -53,6 +57,14 @@ const ParkingPlaces = (props: Props) => {
     const Duration = end - start;
     console.log("ranges", start, end);
     console.log("duration", Duration);
+    // const S = moment.utc();
+
+    // const rtf = new Intl.RelativeTimeFormat("en");
+    // const formatDuration = rtf.format(Duration, "second");
+    // console.log("==>", S);
+    //→'in 3.14 seconds'
+    // rtf.format(-15, "minute");
+    //→'15 minutes ago'
   };
   // const Data: Array<String> = [
   //   "Defence Phase VIII",

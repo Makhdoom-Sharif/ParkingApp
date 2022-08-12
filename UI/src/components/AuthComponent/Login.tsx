@@ -65,8 +65,8 @@ function Login({}: Props) {
   const onSubmit = async (data: FormValues) => {
     try {
       await login(dispatch, data);
-      await GetAllPlaces(dispatch);
-      console.log("object");
+      // await GetAllPlaces(dispatch);
+      // console.log("object");
       navigate("/Park");
     } catch (e) {}
   };

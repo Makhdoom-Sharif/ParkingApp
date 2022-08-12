@@ -9,14 +9,18 @@ import {
   registerStart,
   registerSuccess,
 } from "./redux/action";
-import { publicRequest, userRequest } from "./requestMethod";
+import { publicRequest } from "./requestMethod";
+import axios from "axios";
+
+const BASE_URL = "http://localhost:5000/api/";
 
 export const login = async (dispatch, Data) => {
   dispatch(loginStart());
   try {
     const { data } = await publicRequest.post("/auth/login", Data);
-    // console.log("res==>", data)
+    console.log("res==>", data.accessToken);
     dispatch(loginSuccess(data));
+    GetAllPlaces(dispatch, data.accessToken);
   } catch (e) {
     dispatch(loginFail(e.response.data));
   }
@@ -27,6 +31,9 @@ export const register = async (dispatch, Data) => {
   try {
     const { data } = await publicRequest.post("/auth/register", Data);
     dispatch(registerSuccess(data));
+    // GetTokenLocal();
+    console.log("==>>>>>", data);
+    GetAllPlaces(dispatch, data.TOKEN);
   } catch (e) {
     // console.log(e.response.data.code);
     dispatch(
@@ -37,12 +44,16 @@ export const register = async (dispatch, Data) => {
   }
 };
 
-export const GetAllPlaces = async (dispatch) => {
+export const GetAllPlaces = async (dispatch, AccessTOKEN) => {
   dispatch(GetAllPlacesStart());
   try {
-    const data = await userRequest.get("/places");
+    const places = await axios.create({
+      baseURL: BASE_URL,
+      headers: { token: `Bearer ${AccessTOKEN}` },
+    });
+    const data = await places.get("/places");
     dispatch(GetAllPlacesSuccess(data.data));
-    console.log("data places==>", data);
+    // console.log("data places==>", data);
   } catch (err) {
     dispatch(GetAllPlacesFail(err.response.data));
   }
