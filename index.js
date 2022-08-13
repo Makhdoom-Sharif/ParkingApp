@@ -6,6 +6,8 @@ const authRoute = require("./routes/auth");
 const userRoute = require("./routes/user");
 const bookingRoute = require("./routes/booking");
 const PlacesRoute = require("./routes/Place");
+const AreaRoute = require("./routes/area");
+
 var cors = require("cors");
 dotenv.config();
 
@@ -25,6 +27,7 @@ app.use("/api/user", userRoute);
 
 app.use("/api/newbooking", bookingRoute);
 app.use("/api/places", PlacesRoute);
+app.use("/api/area", AreaRoute);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log("Backend server is runing");

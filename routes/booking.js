@@ -1,105 +1,121 @@
-// const { find } = require("../models/BookedSlots");
 const Booking = require("../models/BookedSlots");
-// const { find } = require('../models/Places');
-// const { find } = require('../models/Places');
 const {
-  verifyToken,
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
 const router = require("express").Router();
 
-//Write Booking
-router.post("/new", verifyTokenAndAuthorization, async (req, res) => {
-  const alreadyBooked = Booking.find(
-    {
-      parkingPlaceID: {
-        $in: req.body.parkingPlaceID,
-      },
-      $or: [
-        {
-          from: {
-            $lte: req.body.from,
-          },
+//Checking Booking
+router.get("/", verifyTokenAndAuthorization, async (req, res) => {
+  const alreadyBooked = Booking.find({
+    parkingPlaceID: {
+      $in: req.body.parkingPlaceID,
+    },
+    $or: [
+      {
+        from: {
+          $lte: req.body.from,
         },
-        {
-          from: {
-            $lte: req.body.to,
-          },
-        },
-      ],
-      to: {
-        $gte: req.body.to,
       },
-    }
-    // from === req.body.from
-  );
+      {
+        from: {
+          $lte: req.body.to,
+        },
+      },
+    ],
+    to: {
+      $gte: req.body.to,
+    },
+  });
 
-  // const newBooking = new Booking({
-  //     parkingPlaceID: req.body.parkingPlaceID,
-  //     userID: req.body.userID,
-  //     from: req.body.from,
-  //     to: req.body.to
-  // })
   try {
     const booked = await alreadyBooked;
     if (booked.length === req.body.slots) {
-      // const newBookingSaved = await newBooking.save()
-      // res.status(201).json(newBookingSaved)
-
       res.status(201).json("No Slots Available");
     } else {
       const bookedSlotsNoArray = booked.map((item) => {
         return item.slotNo;
       });
 
-      console.log(bookedSlotsNoArray);
+      const x = req.body.slots;
+      let slotsArray = [];
+      for (let i = 0; i < x; i++) {
+        slotsArray.push(`${i + 1}`);
+      }
 
-      // const x = req.body.slots;
-      // let slotsArray;
-      // // for (let i = 0; i < x; i++) {
-      // //   [...[`${i + 1}`]];
-      // // }
-
-      // console.log("====>", slotsArray);
+      var availableSlotsNo = slotsArray.filter(
+        (x) => !bookedSlotsNoArray.includes(x)
+      );
       const availableSlotsAmount = req.body.slots - booked.length;
-      res.status(201).json(`${availableSlotsAmount} slots Available`);
+      res.status(201).json({
+        AvialbleSlots: availableSlotsNo,
+        res: `${availableSlotsAmount} slots Available`,
+      });
     }
   } catch (error) {
     res.status(500).json(error);
   }
 });
 
-// `//Delete
-// router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
-//     try {
-//         await Users.findByIdAndDelete(req.params.id)
-//         res.status(200).json("User has been deleted..!")
-//     } catch (err) {
-//         res.status(500).json(err)
-//     }
-// })
+// Post New Booking
+router.post("/new", verifyTokenAndAuthorization, async (req, res) => {
+  const newBooking = new Booking({
+    parkingPlaceID: req.body.parkingPlaceID,
+    userID: req.body.userID,
+    from: req.body.from,
+    to: req.body.to,
+    slotNo: req.body.slotNo,
+  });
+  try {
+    const postNewBooking = await newBooking.save();
+    res.status(201).json(postNewBooking);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
 
-// //Get User
-// router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
-//     try {
-//         const user = await Users.findById(req.params.id)
-//         const { password, ...others } = user._doc;
-//         res.status(200).json({ others });
-//     } catch (err) {
-//         res.status(500).json(err)
-//     }
-// })
+//Delete Booking
+router.delete("/", verifyTokenAndAuthorization, async (req, res) => {
+  try {
+    const booking = await Booking.findById(req.body.BookingID);
+    const { userID } = booking;
+    if (userID === req.body.userID) {
+      await Booking.findByIdAndDelete(req.body.BookingID);
+      res.status(200).json("Booking has been cancelled");
+    } else {
+      res.status(201).json("You're not authenticated");
+    }
+  } catch (err) {
+    res.status(500).json("No Booking Found");
+  }
+});
 
-// //Get All User
-// router.get("/", verifyTokenAndAdmin, async (req, res) => {
-//     try {
-//         const users = await Users.find()
+//Get User Booking
+router.get("/find", verifyTokenAndAuthorization, async (req, res) => {
+  try {
+    const AllBookingUser = await Booking.find({
+      userID: {
+        $in: req.body.userID,
+      },
+    });
+    if (AllBookingUser.length > 0) {
+      res.status(200).json(AllBookingUser);
+    } else {
+      res.status(200).json("No Booking Available");
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
-//         res.status(200).json(users);
-//     } catch (err) {
-//         res.status(500).json(err)
-//     }
-// })
+//Get allBooking
+router.get("/findAll", verifyTokenAndAdmin, async (req, res) => {
+  try {
+    const allBooking = await Booking.find();
+    res.status(200).json(allBooking);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;

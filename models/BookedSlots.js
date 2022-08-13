@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema(
     from: { type: Number, default: Date.now },
     to: { type: Number, default: Date.now },
     slotNo: { type: String, unique: true },
+    areaID: { type: String },
   },
   { timestamps: true }
 );

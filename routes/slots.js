@@ -1,4 +1,5 @@
-const Places = require("../models/Places");
+const Slots = require("../models/Slots");
+// const Places = require("../models/Slots");
 const {
   verifyToken,
   verifyTokenAndAuthorization,
@@ -9,9 +10,9 @@ const router = require("express").Router();
 // CREATE
 
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
-  const newPlace = new Places(req.body);
+  const newSlot = new Slots(req.body);
   try {
-    const savedPlace = await newPlace.save();
+    const savedPlace = await newSlot.save();
     res.status(200).json(savedPlace);
   } catch (err) {
     res.status(500).json(err);
@@ -21,14 +22,14 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
 
 router.put("/", verifyTokenAndAdmin, async (req, res) => {
   try {
-    const updatedPlace = await Places.findByIdAndUpdate(
-      req.body.placeID,
+    const updatedSlot = await Slots.findByIdAndUpdate(
+      req.body.SlotID,
       {
         $set: req.body,
       },
       { new: true }
     );
-    res.status(200).json(updatedPlace);
+    res.status(200).json(updatedSlot);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -37,26 +38,16 @@ router.put("/", verifyTokenAndAdmin, async (req, res) => {
 //Delete
 router.delete("/", verifyTokenAndAdmin, async (req, res) => {
   try {
-    await Place.findByIdAndDelete(req.body.placeID);
+    await Slots.findByIdAndDelete(req.body.SlotID);
     res.status(200).json("Place deleted successfully.....");
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//GET PlaceS
-// router.get("/find/:id", async (req, res) => {
-//   try {
-//     const Place = await Place.findById(req.params.placeID);
-//     res.status(200).json(Place);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
 //Get all PlaceS
 
-router.get("/", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/", verifyTokenAndAdmin, async (req, res) => {
   const qNew = req.query.new;
   const qCategory = req.query.category;
   try {
@@ -70,9 +61,9 @@ router.get("/", verifyTokenAndAuthorization, async (req, res) => {
         },
       });
     } else {
-      GetPlaces = await Places.find();
+      GetSlots = await Slots.find();
     }
-    res.status(200).json(GetPlaces);
+    res.status(200).json(GetSlots);
   } catch (err) {
     res.status(500).json(err);
   }
