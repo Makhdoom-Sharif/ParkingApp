@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import ViewBookingPage from "../pages/ViewBookingPage";
 import HowItWorks from "../pages/HowItWorks";
 import NavBar from "../components/Navbar/NavBar";
+import AreasView from "../pages/AreasView";
 
 type Props = {};
 type SelectorType = {
@@ -38,7 +39,7 @@ const Routing = (props: Props) => {
       <NavBar />
       {loginStatus ? (
         <Routes>
-          <Route path="/Park" element={<ParkPage />}></Route>
+          <Route path="/Park" element={<AreasView />}></Route>
           <Route
             path="/parkingslots"
             element={<ParkingSlotsMainPage />}

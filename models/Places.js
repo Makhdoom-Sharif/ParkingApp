@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const PlacesSchema = new mongoose.Schema(
   {
     placeName: { type: String, required: true, unique: true },
-    totalSlots: { type: Number, required: true },
-    AreaID: { type: String },
+    totalSlots: { type: Number, default: 0 },
+    AreaID: { type: String, required: true },
   },
   { timestamps: true }
 );

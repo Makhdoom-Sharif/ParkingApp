@@ -1,4 +1,5 @@
 const Area = require("../models/Area");
+const BookedSlots = require("../models/BookedSlots");
 const Places = require("../models/Places");
 const Slots = require("../models/Slots");
 
@@ -30,32 +31,58 @@ router.delete("/", verifyTokenAndAdmin, async (req, res) => {
       },
     });
 
-    try {
-      const SlotsToBeDeletedArray = await Promise.all(
-        PlacesToBeDeleted.map(async (item) => {
-          return await Slots.find({
-            parkingPlaceID: {
-              $in: item._id.toString(),
-            },
-          });
-        })
-      );
-      const SlotsToBeDeletedArrayflat = SlotsToBeDeletedArray.flat();
-      console.log("outside==>", SlotsToBeDeletedArrayflat);
-      PlacesToBeDeleted.forEach(async (item) => {
-        await Places.findByIdAndDelete(item._id.toString());
-      });
+    const SlotsToBeDeletedArray = await Promise.all(
+      PlacesToBeDeleted.map(async (item) => {
+        return await Slots.find({
+          parkingPlaceID: {
+            $in: item._id.toString(),
+          },
+        });
+      })
+    );
+    const SlotsToBeDeletedArrayflat = SlotsToBeDeletedArray.flat();
 
+    const BookingToBeDeletedArray = await Promise.all(
+      PlacesToBeDeleted.map(async (item) => {
+        return await BookedSlots.find({
+          parkingPlaceID: {
+            $in: item._id.toString(),
+          },
+        });
+      })
+    );
+    const flatBookingToBeDeleted = BookingToBeDeletedArray.flat();
+
+    const d = new Date().getTime();
+    const BooleanArray = flatBookingToBeDeleted.map((item) => {
+      return item.from >= d || item.to >= d ? true : false;
+    });
+    // console.log(flatBookingToBeDeleted);
+    // console.log(d);
+    const state = BooleanArray.find((item) => {
+      return item === true;
+    });
+    console.log(state);
+    let response;
+    if (state) {
+      // console.log("first");
+      response = "Unable to delete";
+      // return res.status(200).json("Unable to delete");
+    } else {
+      flatBookingToBeDeleted.forEach(async (item) => {
+        await BookedSlots.findByIdAndDelete(item._id.toString());
+      });
       SlotsToBeDeletedArrayflat.forEach(async (item) => {
         await Slots.findByIdAndDelete(item._id.toString());
       });
+      PlacesToBeDeleted.forEach(async (item) => {
+        await Places.findByIdAndDelete(item._id.toString());
+      });
       await Area.findByIdAndDelete(req.body.AreaID);
-      res.status(200).json("Area has been deleted");
-    } catch (e) {
-      res.status(200).json("No Areas Found");
+      // console.log("second");
+      response = "deleted";
     }
-    // await Area.findByIdAndDelete(req.body.AreaID);
-    // res.status(201).json(PlacesToBeDeleted);
+    return res.status(200).json(response);
   } catch (err) {
     res.status(500).json("No Area Found");
   }

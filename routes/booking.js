@@ -37,7 +37,7 @@ router.get("/", verifyTokenAndAuthorization, async (req, res) => {
         return item.slotNo;
       });
 
-      const x = req.body.slots;
+      const x = req.body.totalSlots;
       let slotsArray = [];
       for (let i = 0; i < x; i++) {
         slotsArray.push(`${i + 1}`);
@@ -92,17 +92,49 @@ router.delete("/", verifyTokenAndAuthorization, async (req, res) => {
 
 //Get User Booking
 router.get("/find", verifyTokenAndAuthorization, async (req, res) => {
+  const qCategory = req.query.category;
+  // console.log(qCategory);
   try {
-    const AllBookingUser = await Booking.find({
-      userID: {
-        $in: req.body.userID,
-      },
-    });
-    if (AllBookingUser.length > 0) {
-      res.status(200).json(AllBookingUser);
+    let response;
+    console.log(req.query);
+
+    if (req.query.category === "history") {
+      response = await Booking.find({
+        userID: {
+          $in: req.body.userID,
+        },
+        to: {
+          $lt: new Date().getTime(),
+        },
+      });
+      console.log("if==>", response);
+    } else if (qCategory === "pending") {
+      response = await Booking.find({
+        userID: {
+          $in: req.body.userID,
+        },
+        to: {
+          $gte: new Date().getTime(),
+        },
+      });
+      console.log("elseif==>", response);
     } else {
-      res.status(200).json("No Booking Available");
+      response = await Booking.find({
+        userID: {
+          $in: req.body.userID,
+        },
+      });
+      // console.log("else==>", response);
     }
+    // res.status(200).json(response);
+    return response.length > 0
+      ? res.status(200).json(response)
+      : res.status(200).json("No Booking Available");
+    // if (response.length > 0) {
+    //   res.status(200).json(AllBookingUser);
+    // } else {
+    //   res.status(200).json("No Booking Available");
+    // }
   } catch (err) {
     res.status(500).json(err);
   }

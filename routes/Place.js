@@ -1,4 +1,7 @@
+const Area = require("../models/Area");
+const BookedSlots = require("../models/BookedSlots");
 const Places = require("../models/Places");
+const Slots = require("../models/Slots");
 const {
   verifyToken,
   verifyTokenAndAuthorization,
@@ -11,6 +14,10 @@ const router = require("express").Router();
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
   const newPlace = new Places(req.body);
   try {
+    const UpdatedArea = await Area.findByIdAndUpdate(req.body.AreaID, {
+      $inc: { TotalPalces: 1 },
+    });
+    // console.log(UpdatedArea);
     const savedPlace = await newPlace.save();
     res.status(200).json(savedPlace);
   } catch (err) {
@@ -22,7 +29,7 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
 router.put("/", verifyTokenAndAdmin, async (req, res) => {
   try {
     const updatedPlace = await Places.findByIdAndUpdate(
-      req.body.placeID,
+      req.body.parkingPlaceID,
       {
         $set: req.body,
       },
@@ -37,8 +44,49 @@ router.put("/", verifyTokenAndAdmin, async (req, res) => {
 //Delete
 router.delete("/", verifyTokenAndAdmin, async (req, res) => {
   try {
-    await Place.findByIdAndDelete(req.body.placeID);
-    res.status(200).json("Place deleted successfully.....");
+    const UpdatedArea = await Area.findByIdAndUpdate(req.body.AreaID, {
+      $inc: { TotalPalces: -1 },
+    });
+    const BookingToBeDeleted = await BookedSlots.find({
+      parkingPlaceID: {
+        $in: req.body.parkingPlaceID,
+      },
+    });
+
+    const SlotsToBeDeleted = await Slots.find({
+      parkingPlaceID: {
+        $in: req.body.parkingPlaceID,
+      },
+    });
+
+    const d = new Date().getTime();
+    const BooleanArray = BookingToBeDeleted.map((item) => {
+      return item.from >= d || item.to >= d ? true : false;
+    });
+
+    const state = BooleanArray.find((item) => {
+      return item === true;
+    });
+    let response;
+    if (state) {
+      response = "Unable to delete";
+      // return res.status(200).json("Unable to delete");
+    } else {
+      BookingToBeDeleted.forEach(async (item) => {
+        await BookedSlots.findByIdAndDelete(item._id.toString());
+      });
+      SlotsToBeDeleted.forEach(async (item) => {
+        await Slots.findByIdAndDelete(item._id.toString());
+      });
+      await Places.findByIdAndDelete(req.body.parkingPlaceID);
+      response = "Deleted successfully";
+    }
+    return res.status(200).json(response);
+    // console.log(SlotsToBeDeleted);
+    // console.log(BookingToBeDeleted);
+    // console.log(BooleanArray);
+    // console.log(state);
+    // res.status(200).json("Place deleted successfully.....");
   } catch (err) {
     res.status(500).json(err);
   }
