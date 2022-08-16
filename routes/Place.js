@@ -105,21 +105,26 @@ router.delete("/", verifyTokenAndAdmin, async (req, res) => {
 //Get all PlaceS
 
 router.get("/", verifyTokenAndAuthorization, async (req, res) => {
-  const qNew = req.query.new;
-  const qCategory = req.query.category;
+  const qAreaID = req.query.AreaID;
+  // const qCategory = req.query.category;
   try {
-    let GetPlaces;
-    if (qNew) {
-      GetPlaces = await Places.find().sort({ createdAt: -1 }).limit(1);
-    } else if (qCategory) {
-      GetPlaces = await Places.find({
-        categories: {
-          $in: [qCategory],
-        },
-      });
-    } else {
-      GetPlaces = await Places.find();
-    }
+    // let GetPlaces;
+    // if (qNew) {
+    //   GetPlaces = await Places.find().sort({ createdAt: -1 }).limit(1);
+    // } else if (qCategory) {
+    //   GetPlaces = await Places.find({
+    //     categories: {
+    //       $in: [qCategory],
+    //     },
+    //   });
+    // } else {
+    console.log(qAreaID);
+    const GetPlaces = await Places.find({
+      AreaID: {
+        $in: qAreaID,
+      },
+    });
+    // }
     res.status(200).json(GetPlaces);
   } catch (err) {
     res.status(500).json(err);

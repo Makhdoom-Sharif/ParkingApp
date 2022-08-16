@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../components/Footer/Footer";
 import NavBar from "../components/Navbar/NavBar";
-import ParkingMap from "../components/ParkingMap/ParkingMap";
+// import ParkingMap from "../components/PlacesComponent/PlacesComponents";
 import ParkingSlotsMain from "../components/ParkingSlotsMain/ParkingSlotsMain";
 import Title from "../components/Title/Title";
 

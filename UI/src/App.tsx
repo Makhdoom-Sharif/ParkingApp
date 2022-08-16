@@ -4,27 +4,27 @@ import "./App.css";
 import Routing from "./Router/Routing";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 // import { CallT, GetTokenLocal } from "./requestMethod";
-import { useSelector } from "react-redux";
-type SelectorType = {
-  user: {
-    accessToken: string;
-    contactNo: string;
-    email: string;
-    errorMessage: string;
-    isAdmin: boolean;
-    loading: boolean;
-    loginStatus: boolean;
-    uid: string;
-    username: string;
-    allPlaces: {
-      _id: string;
-      placeName: string;
-    }[];
-  };
-};
+// import { useSelector } from "react-redux";
+// type SelectorType = {
+//   user: {
+//     accessToken: string;
+//     contactNo: string;
+//     email: string;
+//     errorMessage: string;
+//     isAdmin: boolean;
+//     loading: boolean;
+//     loginStatus: boolean;
+//     uid: string;
+//     username: string;
+//     allPlaces: {
+//       _id: string;
+//       placeName: string;
+//     }[];
+//   };
+// };
 function App() {
-  const DetailsUser = useSelector((state: SelectorType) => state?.user);
-  const { loginStatus, accessToken } = DetailsUser;
+  // const DetailsUser = useSelector((state: SelectorType) => state?.user);
+  // const { loginStatus, accessToken } = DetailsUser;
   // useEffect(() => {
   //   GetTokenLocal(accessToken);
   //   CallT();

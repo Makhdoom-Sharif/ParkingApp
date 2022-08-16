@@ -11,9 +11,13 @@ const initialState = {
   accessToken: "",
   errorMessage: "",
   allPlaces: [],
+  allAreas: [],
+  ComponentChange: "",
+  allSlots: [],
 };
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    case type.GET_ALL_AREAS_START:
     case type.GET_ALL_PLACES_START:
     case type.REGISTER_START:
     case type.LOGIN_START:
@@ -33,6 +37,7 @@ const userReducer = (state = initialState, action) => {
         isAdmin: action.payload.isAdmin,
         accessToken: action.payload.accessToken,
       };
+    case type.GET_ALL_AREAS_FAIL:
     case type.GET_ALL_PLACES_FAIL:
     case type.REGISTER_FAIL:
     case type.LOGIN_FAIL:
@@ -60,6 +65,17 @@ const userReducer = (state = initialState, action) => {
         ...state,
         allPlaces: action.payload,
         loading: false,
+      };
+    case type.GET_ALL_AREAS_SUCCESS:
+      return {
+        ...state,
+        allAreas: action.payload,
+        loading: false,
+      };
+    case type.COMPONENT_CHANGE:
+      return {
+        ...state,
+        ComponentChange: action.payload,
       };
     default:
       return state;

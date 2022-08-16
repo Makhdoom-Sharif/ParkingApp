@@ -1,14 +1,12 @@
-import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import RegisterPage from "../pages/RegisterPage";
-import LoginPage from "../pages/LoginPage";
-import ParkPage from "../pages/ParkPage";
-import ParkingSlotsMainPage from "../pages/ParkingSlotsMainPage";
 import { useSelector } from "react-redux";
-import ViewBookingPage from "../pages/ViewBookingPage";
-import HowItWorks from "../pages/HowItWorks";
+import { Navigate, Route, Routes } from "react-router-dom";
 import NavBar from "../components/Navbar/NavBar";
-import AreasView from "../pages/AreasView";
+import HowItWorks from "../pages/HowItWorks";
+import LoginPage from "../pages/LoginPage";
+import ParkingSlotsMainPage from "../pages/ParkingSlotsMainPage";
+import ParkPage from "../pages/ParkPage";
+import RegisterPage from "../pages/RegisterPage";
+import ViewBookingPage from "../pages/ViewBookingPage";
 
 type Props = {};
 type SelectorType = {
@@ -39,11 +37,12 @@ const Routing = (props: Props) => {
       <NavBar />
       {loginStatus ? (
         <Routes>
-          <Route path="/Park" element={<AreasView />}></Route>
-          <Route
+          {/* <Route path="/Park" element={<AreasView />}></Route> */}
+          <Route path="/Park" element={<ParkPage />}></Route>
+          {/* <Route
             path="/parkingslots"
             element={<ParkingSlotsMainPage />}
-          ></Route>
+          ></Route> */}
           <Route path="/ViewBooking" element={<ViewBookingPage />}></Route>
           <Route path="/HowItWorks" element={<HowItWorks />}></Route>
           <Route path="*" element={<Navigate replace to="/Park" />} />

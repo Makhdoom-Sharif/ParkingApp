@@ -1,3 +1,4 @@
+import { ActionTypes } from "@mui/base";
 import * as type from "./actionType";
 
 export const loginStart = () => ({
@@ -44,5 +45,23 @@ export const GetAllPlacesSuccess = (Data) => ({
 });
 export const GetAllPlacesFail = (Data) => ({
   type: type.GET_ALL_PLACES_FAIL,
+  payload: Data,
+});
+
+export const GetAllAreasInit = () => ({
+  type: type.GET_ALL_AREAS_START,
+});
+
+export const GetAllAreasSuccess = (Data) => ({
+  type: type.GET_ALL_AREAS_SUCCESS,
+  payload: Data,
+});
+
+export const GetAllAreaFail = () => ({
+  type: type.GET_ALL_AREAS_FAIL,
+});
+
+export const ComponentChange = (Data) => ({
+  type: type.COMPONENT_CHANGE,
   payload: Data,
 });

@@ -11,7 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GetAllPlaces, login } from "../../apiCalls";
-import { loginStart } from "../../redux/action";
+import { ComponentChange, loginStart } from "../../redux/action";
 import InputField from "../Inputfield/InputField";
 // import LoadingButton from '@mui/lab';
 
@@ -65,8 +65,7 @@ function Login({}: Props) {
   const onSubmit = async (data: FormValues) => {
     try {
       await login(dispatch, data);
-      // await GetAllPlaces(dispatch);
-      // console.log("object");
+      dispatch(ComponentChange("AreaView"));
       navigate("/Park");
     } catch (e) {}
   };

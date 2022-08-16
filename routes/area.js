@@ -13,6 +13,7 @@ const router = require("express").Router();
 router.post("/new", verifyTokenAndAdmin, async (req, res) => {
   const newArea = new Area({
     AreaName: req.body.AreaName,
+    TotalPalces: req.body.TotalPalces,
   });
   try {
     const postNewArea = await newArea.save();
