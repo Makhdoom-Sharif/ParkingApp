@@ -84,15 +84,24 @@ export const GetAllAreas = async (dispatch, AccessTOKEN) => {
 
 export const GetAllAvailableSlots = async (dispatch, AccessTOKEN, Data) => {
   // dispatch(GetAllSlotsInit())
-  const { to, from, parkingPlaceID } = Data;
+  const { start, end, _id, totalSlots, AreaID, placeName } = Data;
   try {
+    console.log("==>", Data);
+    // console.log("==>", dispatch);
+    // console.log("==>", AccessTOKEN);
+    console.log(start);
+    console.log(end);
+    console.log(_id);
+    console.log(totalSlots);
+
     const Slots = await axios.create({
       baseURL: BASE_URL,
       headers: { token: `Bearer ${AccessTOKEN}` },
     });
     const data = await Slots.get(
-      `/newbooking/?parkingPlaceID=${parkingPlaceID}&from${from}$to${to}`
+      `/newbooking/?parkingPlaceID=${_id}&from=${start}&to=${end}&slots=${totalSlots}`
     );
+    console.log(data);
   } catch (e) {
     console.log(e);
   }

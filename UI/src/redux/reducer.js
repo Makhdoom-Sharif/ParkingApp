@@ -14,6 +14,7 @@ const initialState = {
   allAreas: [],
   ComponentChange: "",
   allSlots: [],
+  SelectedPlace: {},
 };
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -76,6 +77,11 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         ComponentChange: action.payload,
+      };
+    case type.SELECTED_PLACE:
+      return {
+        ...state,
+        SelectedPlace: action.payload,
       };
     default:
       return state;

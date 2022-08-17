@@ -5,7 +5,7 @@ import { useState } from "react";
 import "./style.css";
 // import { GetTokenLocal } from "../../requestMethod";
 import { useDispatch, useSelector } from "react-redux";
-import { ComponentChange } from "../../redux/action";
+import { ComponentChange, SelectedPlace } from "../../redux/action";
 import Animation from "../SideAnimation/Animation";
 
 type Props = {};
@@ -23,16 +23,25 @@ type SelectorType = {
     allPlaces: {
       _id: string;
       placeName: string;
+      totalSlots: Number;
+      AreaID: String;
     }[];
   };
 };
-
+type SelectedPlace = {
+  _id: String;
+  placeName: string;
+  AreaID: String;
+  totalSlots: Number;
+};
 const ParkingPlaces = (props: Props) => {
   const dispatch = useDispatch();
   const [IsScreenSwap, setIsScreenSwap] = useState(false);
   const DetailsUser = useSelector((state: SelectorType) => state?.user);
   const { allPlaces } = DetailsUser;
-  const handlePlaceSubmit = (PlaceID: String) => {
+  const handlePlaceSubmit = (item: SelectedPlace) => {
+    dispatch(SelectedPlace(item));
+    console.log(item);
     dispatch(ComponentChange("DateTimeRangeView"));
   };
   // const SubmitRange = (value1: string, value2: string) => {
@@ -66,7 +75,7 @@ const ParkingPlaces = (props: Props) => {
               className="button"
               color="secondary"
               fullWidth
-              onClick={() => handlePlaceSubmit(item._id)}
+              onClick={() => handlePlaceSubmit(item)}
             >
               <p> {item.placeName}</p>
               <ArrowForwardIosIcon style={{ fontSize: "1rem" }} />

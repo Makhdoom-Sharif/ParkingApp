@@ -65,3 +65,8 @@ export const ComponentChange = (Data) => ({
   type: type.COMPONENT_CHANGE,
   payload: Data,
 });
+
+export const SelectedPlace = (Data) => ({
+  type: type.SELECTED_PLACE,
+  payload: Data,
+});

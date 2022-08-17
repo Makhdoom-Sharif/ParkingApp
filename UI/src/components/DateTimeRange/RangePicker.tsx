@@ -31,17 +31,30 @@ type SelectorType = {
       _id: string;
       placeName: string;
     }[];
+    SelectedPlace: {
+      _id: String;
+      placeName: string;
+      AreaID: String;
+      totalSlots: Number;
+    };
   };
 };
 export default function RangePicker() {
   const dispatch = useDispatch();
-  const { accessToken } = useSelector((state: SelectorType) => state?.user);
+  const { accessToken, SelectedPlace } = useSelector(
+    (state: SelectorType) => state?.user
+  );
 
   // const { TimeScreenSwapper } = props
   const handleSubmitRange = (from: number | null, to: number | null) => {
     const start = from !== null ? new Date(from).getTime() : 0;
     const end = to !== null ? new Date(to).getTime() : 0;
-    GetAllAvailableSlots(dispatch, accessToken, { start, end });
+    console.log(SelectedPlace);
+    GetAllAvailableSlots(dispatch, accessToken, {
+      start,
+      end,
+      ...SelectedPlace,
+    });
     // dispatch(ComponentChange("SlotsView"));
   };
   const [value1, setValue1] = React.useState<number | null>(null);

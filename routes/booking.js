@@ -7,37 +7,51 @@ const router = require("express").Router();
 
 //Checking Booking
 router.get("/", verifyTokenAndAuthorization, async (req, res) => {
-  const alreadyBooked = Booking.find({
-    parkingPlaceID: {
-      $in: req.body.parkingPlaceID,
-    },
-    $or: [
-      {
-        from: {
-          $lte: req.body.from,
-        },
-      },
-      {
-        from: {
-          $lte: req.body.to,
-        },
-      },
-    ],
-    to: {
-      $gte: req.body.to,
-    },
-  });
-
   try {
+    const { parkingPlaceID, from, to, slots } = req.query;
+    TotalSlots = Number(slots);
+    start = Number(from);
+    end = Number(to);
+    // console.log(TotalSlots);
+    // console.log(start);
+    // console.log(end);
+    // console.log(parkingPlaceID);
+    console.log(req.query);
+    const alreadyBooked = Booking.find({
+      parkingPlaceID: {
+        $in: parkingPlaceID,
+      },
+      $or: [
+        {
+          from: {
+            $lte: start,
+          },
+        },
+        {
+          from: {
+            $lte: end,
+          },
+        },
+      ],
+      to: {
+        $gte: end,
+      },
+    });
+    // console.log(await alreadyBooked);
     const booked = await alreadyBooked;
-    if (booked.length === req.body.slots) {
+    console.log("=>", booked);
+    // res.status(200).json(booked);
+    if (booked.length === TotalSlots) {
       res.status(201).json("No Slots Available");
     } else {
-      const bookedSlotsNoArray = booked.map((item) => {
-        return item.slotNo;
-      });
+      const bookedSlotsNoArray =
+        booked.length === 0
+          ? []
+          : booked.map((item) => {
+              return item.slotNo;
+            });
 
-      const x = req.body.totalSlots;
+      const x = TotalSlots;
       let slotsArray = [];
       for (let i = 0; i < x; i++) {
         slotsArray.push(`${i + 1}`);
@@ -46,10 +60,10 @@ router.get("/", verifyTokenAndAuthorization, async (req, res) => {
       var availableSlotsNo = slotsArray.filter(
         (x) => !bookedSlotsNoArray.includes(x)
       );
-      const availableSlotsAmount = req.body.slots - booked.length;
+      const availableSlotsAmount = TotalSlots - booked.length;
       res.status(201).json({
         AvialbleSlots: availableSlotsNo,
-        res: `${availableSlotsAmount} slots Available`,
+        message: `${availableSlotsAmount} slots Available`,
       });
     }
   } catch (error) {
