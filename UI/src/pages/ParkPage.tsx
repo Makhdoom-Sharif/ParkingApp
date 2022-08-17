@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
 import Footer from "../components/Footer/Footer";
-import AreaView from "../components/ParkingView/AreaView";
-import DateTimeRangeView from "../components/ParkingView/DateTimeRangeView";
-import PlaceView from "../components/ParkingView/PlaceView";
-import SlotsView from "../components/ParkingView/SlotsView";
+import ParkingStepper from "../components/ParkingStepper/ParkingStepper";
+import AreaView from "../components/ParkingStepper/ParkingView/AreaView";
+import DateTimeRangeView from "../components/ParkingStepper/ParkingView/DateTimeRangeView";
+import PlaceView from "../components/ParkingStepper/ParkingView/PlaceView";
+import SlotsView from "../components/ParkingStepper/ParkingView/SlotsView";
+import Title from "../components/Title/Title";
 
 type Props = {};
 type SelectorType = {
@@ -32,7 +34,10 @@ const ParkPage = (props: Props) => {
   return (
     <>
       <div style={{ flexGrow: "1", display: "flex", flexDirection: "column" }}>
-        {ComponentChange === "AreaView" ? (
+        <Title titleText="New Booking" />
+
+        <ParkingStepper />
+        {/* {ComponentChange === "AreaView" ? (
           <AreaView />
         ) : ComponentChange === "PlaceView" ? (
           <PlaceView />
@@ -40,7 +45,7 @@ const ParkPage = (props: Props) => {
           <DateTimeRangeView />
         ) : (
           <SlotsView />
-        )}
+        )} */}
       </div>
       <Footer />
     </>

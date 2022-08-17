@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GetAllPlaces } from "../../apiCalls";
-import { ComponentChange } from "../../redux/action";
+import { ChangeStep, ComponentChange } from "../../redux/action";
 import "./style.css";
 const Data = [
   {
@@ -67,6 +67,7 @@ type SelectorType = {
       AreaName: string;
       TotalPalces: Number;
     }[];
+    StepNo: Number;
   };
 };
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -76,7 +77,7 @@ const theme = createTheme();
 export default function Cards() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { allAreas, accessToken } = useSelector(
+  const { allAreas, accessToken, StepNo } = useSelector(
     (state: SelectorType) => state?.user
   );
   const handleAreaSelect = (AreaID: String) => {
@@ -84,8 +85,10 @@ export default function Cards() {
     GetAllPlaces(dispatch, accessToken, AreaID)
       .then(() => {
         // console.log("object");
-        // navigate("/places");
+        // navigate("/places")
+        console.log("step=====>", StepNo);
         dispatch(ComponentChange("PlaceView"));
+        // dispatch(ChangeStep(StepNo));
       })
       .catch((e) => {
         console.log(e);

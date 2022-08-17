@@ -61,10 +61,7 @@ router.get("/", verifyTokenAndAuthorization, async (req, res) => {
         (x) => !bookedSlotsNoArray.includes(x)
       );
       const availableSlotsAmount = TotalSlots - booked.length;
-      res.status(201).json({
-        AvialbleSlots: availableSlotsNo,
-        message: `${availableSlotsAmount} slots Available`,
-      });
+      res.status(201).json(availableSlotsNo);
     }
   } catch (error) {
     res.status(500).json(error);

@@ -1,13 +1,13 @@
 import React from "react";
-import ParkingPlaces from "../PlacesComponent/PlacesComponents";
-import Title from "../Title/Title";
+import ParkingPlaces from "../../PlacesComponent/PlacesComponents";
+import Title from "../../Title/Title";
 
 type Props = {};
 
 const PlaceView = (props: Props) => {
   return (
     <>
-      <Title titleText="Available Places" />
+      {/* <Title titleText="Available Places" /> */}
       <ParkingPlaces />
     </>
   );

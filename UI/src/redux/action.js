@@ -70,3 +70,12 @@ export const SelectedPlace = (Data) => ({
   type: type.SELECTED_PLACE,
   payload: Data,
 });
+
+export const GetAllAvailableSlotsArray = (Data) => ({
+  type: type.GET_ALL_AVAILABLE_SLOTS,
+  payload: Data,
+});
+export const ChangeStep = (Data) => ({
+  type: type.CHANGE_STEP,
+  payload: Data,
+});

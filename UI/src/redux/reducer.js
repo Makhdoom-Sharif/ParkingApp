@@ -15,6 +15,7 @@ const initialState = {
   ComponentChange: "",
   allSlots: [],
   SelectedPlace: {},
+  StepNo: 0,
 };
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -82,6 +83,16 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         SelectedPlace: action.payload,
+      };
+    case type.GET_ALL_AVAILABLE_SLOTS:
+      return {
+        ...state,
+        allSlots: action.payload,
+      };
+    case type.CHANGE_STEP:
+      return {
+        ...state,
+        StepNo: action.payload,
       };
     default:
       return state;

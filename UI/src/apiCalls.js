@@ -2,6 +2,7 @@ import {
   GetAllAreaFail,
   GetAllAreasInit,
   GetAllAreasSuccess,
+  GetAllAvailableSlotsArray,
   GetAllPlacesFail,
   GetAllPlacesStart,
   GetAllPlacesSuccess,
@@ -86,13 +87,13 @@ export const GetAllAvailableSlots = async (dispatch, AccessTOKEN, Data) => {
   // dispatch(GetAllSlotsInit())
   const { start, end, _id, totalSlots, AreaID, placeName } = Data;
   try {
-    console.log("==>", Data);
+    // console.log("==>", Data);
     // console.log("==>", dispatch);
     // console.log("==>", AccessTOKEN);
-    console.log(start);
-    console.log(end);
-    console.log(_id);
-    console.log(totalSlots);
+    // console.log(start);
+    // console.log(end);
+    // console.log(_id);
+    // console.log(totalSlots);
 
     const Slots = await axios.create({
       baseURL: BASE_URL,
@@ -101,7 +102,7 @@ export const GetAllAvailableSlots = async (dispatch, AccessTOKEN, Data) => {
     const data = await Slots.get(
       `/newbooking/?parkingPlaceID=${_id}&from=${start}&to=${end}&slots=${totalSlots}`
     );
-    console.log(data);
+    dispatch(GetAllAvailableSlotsArray(data.data));
   } catch (e) {
     console.log(e);
   }

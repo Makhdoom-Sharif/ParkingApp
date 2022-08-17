@@ -55,7 +55,7 @@ export default function RangePicker() {
       end,
       ...SelectedPlace,
     });
-    // dispatch(ComponentChange("SlotsView"));
+    dispatch(ComponentChange("SlotsView"));
   };
   const [value1, setValue1] = React.useState<number | null>(null);
   const [value2, setValue2] = React.useState<number | null>(null);
