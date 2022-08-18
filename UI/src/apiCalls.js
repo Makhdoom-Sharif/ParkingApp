@@ -86,6 +86,7 @@ export const GetAllAreas = async (dispatch, AccessTOKEN) => {
 export const GetAllAvailableSlots = async (dispatch, AccessTOKEN, Data) => {
   // dispatch(GetAllSlotsInit())
   const { start, end, _id, totalSlots, AreaID, placeName } = Data;
+  console.log("api==>", Data);
   try {
     // console.log("==>", Data);
     // console.log("==>", dispatch);

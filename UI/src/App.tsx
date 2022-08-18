@@ -41,6 +41,9 @@ function App() {
         main: "#72BE44",
         contrastText: "#fff",
       },
+      success: {
+        main: "#000",
+      },
       // ...
     },
   });

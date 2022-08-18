@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const AreaSchema = new mongoose.Schema(
   {
     AreaName: { type: String, require: true, unique: true },
-    TotalPalces: {
+    TotalPlaces: {
       type: Number,
       default: 0,
     },

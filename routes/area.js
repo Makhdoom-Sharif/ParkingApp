@@ -13,7 +13,7 @@ const router = require("express").Router();
 router.post("/new", verifyTokenAndAdmin, async (req, res) => {
   const newArea = new Area({
     AreaName: req.body.AreaName,
-    TotalPalces: req.body.TotalPalces,
+    // TotalPalces: req.body.TotalPalces,
   });
   try {
     const postNewArea = await newArea.save();
@@ -58,8 +58,6 @@ router.delete("/", verifyTokenAndAdmin, async (req, res) => {
     const BooleanArray = flatBookingToBeDeleted.map((item) => {
       return item.from >= d || item.to >= d ? true : false;
     });
-    // console.log(flatBookingToBeDeleted);
-    // console.log(d);
     const state = BooleanArray.find((item) => {
       return item === true;
     });
@@ -95,7 +93,9 @@ router.put("/", verifyTokenAndAdmin, async (req, res) => {
     const updatedArea = await Area.findByIdAndUpdate(
       req.body.AreaID,
       {
-        $set: req.body,
+        $set: {
+          AreaName: req.body.AreaName,
+        },
       },
       { new: true }
     );

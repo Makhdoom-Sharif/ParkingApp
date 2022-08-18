@@ -1,0 +1,12 @@
+.cards {
+  box-shadow: 0px 2px 1px -1px #282c3485, 0px 1px 1px 0px #282c3485,
+    0px 1px 3px 0px #282c3485 !important;
+  /* background-color: red; */
+}
+.Cardsbutton {
+  background-color: #616161 !important;
+  text-transform: none;
+}
+:hover.cards .Cardsbutton {
+  background-color: #000 !important;
+}

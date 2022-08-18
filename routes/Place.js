@@ -12,7 +12,10 @@ const router = require("express").Router();
 // CREATE
 
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
-  const newPlace = new Places(req.body);
+  const newPlace = new Places({
+    placeName: req.body.placeName,
+    AreaID: req.body.AreaID,
+  });
   try {
     const UpdatedArea = await Area.findByIdAndUpdate(req.body.AreaID, {
       $inc: { TotalPalces: 1 },
@@ -31,7 +34,9 @@ router.put("/", verifyTokenAndAdmin, async (req, res) => {
     const updatedPlace = await Places.findByIdAndUpdate(
       req.body.parkingPlaceID,
       {
-        $set: req.body,
+        $set: {
+          placeName: req.body.placeName,
+        },
       },
       { new: true }
     );

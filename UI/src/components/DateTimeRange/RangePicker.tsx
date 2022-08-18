@@ -9,8 +9,10 @@ import { Button, IconButton, Paper } from "@mui/material";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import Animation from "../SideAnimation/Animation";
 import { useDispatch, useSelector } from "react-redux";
-import { ComponentChange } from "../../redux/action";
+import { ChangeStep, ComponentChange } from "../../redux/action";
 import { GetAllAvailableSlots } from "../../apiCalls";
+import e from "express";
+import { LoadingButton } from "@mui/lab";
 
 type Props = {
   // TimeScreenSwapper: Function;
@@ -45,21 +47,40 @@ export default function RangePicker() {
     (state: SelectorType) => state?.user
   );
 
-  // const { TimeScreenSwapper } = props
   const handleSubmitRange = (from: number | null, to: number | null) => {
     const start = from !== null ? new Date(from).getTime() : 0;
     const end = to !== null ? new Date(to).getTime() : 0;
-    console.log(SelectedPlace);
-    GetAllAvailableSlots(dispatch, accessToken, {
-      start,
-      end,
-      ...SelectedPlace,
-    });
-    dispatch(ComponentChange("SlotsView"));
+    console.log("places=>", SelectedPlace);
+    if (start >= new Date().getTime() && end > new Date().getTime()) {
+      GetAllAvailableSlots(dispatch, accessToken, {
+        start,
+        end,
+        ...SelectedPlace,
+      });
+      dispatch(ChangeStep(3));
+    } else {
+      console.log("Invalid range");
+    }
   };
   const [value1, setValue1] = React.useState<number | null>(null);
   const [value2, setValue2] = React.useState<number | null>(null);
+  const [disable, setDisable] = React.useState(true);
 
+  React.useEffect(() => {
+    const start = value1 !== null ? new Date(value1).getTime() : 0;
+    const end = value2 !== null ? new Date(value2).getTime() : 0;
+
+    if (
+      start >= new Date().getTime() &&
+      end > new Date().getTime() &&
+      start < end
+    ) {
+      setDisable(false);
+      console.log(value1);
+    } else {
+      setDisable(true);
+    }
+  }, [value1, value2]);
   return (
     <div
       className="container"
@@ -101,12 +122,6 @@ export default function RangePicker() {
                 alignContent: "center",
               }}
             >
-              <IconButton
-                style={{ color: "#000" }}
-                // onClick={() => TimeScreenSwapper()}
-              >
-                <ArrowCircleLeftIcon style={{ fontSize: "2.25rem" }} />
-              </IconButton>
               <Box component={"h2"}> Select Date And Time:</Box>
             </div>
             <Box
@@ -158,13 +173,11 @@ export default function RangePicker() {
                 </LocalizationProvider>
               </div>
             </Box>
-            <Button
+            <LoadingButton
               variant="contained"
+              color="success"
               onClick={() => handleSubmitRange(value1, value2)}
-              // fullWidth
-              style={{
-                background: "#000",
-                color: "#fff",
+              sx={{
                 width: "70%",
                 display: "flex",
                 flexDirection: "row",
@@ -173,9 +186,10 @@ export default function RangePicker() {
                 alignItems: "center",
                 margin: "10px",
               }}
+              disabled={disable}
             >
               Next
-            </Button>
+            </LoadingButton>
           </Box>
         </Box>
       </Box>

@@ -1,6 +1,5 @@
 const BookedSlots = require("../models/BookedSlots");
 const Slots = require("../models/Slots");
-// const Places = require("../models/Slots");
 const { verifyTokenAndAdmin } = require("./verifyToken");
 const router = require("express").Router();
 
@@ -22,7 +21,7 @@ router.put("/", verifyTokenAndAdmin, async (req, res) => {
     const updatedSlot = await Slots.findByIdAndUpdate(
       req.body.SlotID,
       {
-        $set: req.body,
+        $set: { slotNo: req.body.slotNo },
       },
       { new: true }
     );
@@ -39,8 +38,8 @@ router.delete("/", verifyTokenAndAdmin, async (req, res) => {
       parkingPlaceID: {
         $in: req.body.parkingPlaceID,
       },
-      slotNo: {
-        $in: req.body.slotNo,
+      _id: {
+        $in: req.body.slotID,
       },
     });
 
@@ -71,10 +70,10 @@ router.delete("/", verifyTokenAndAdmin, async (req, res) => {
 
 //Get all slots
 
-router.get("/", verifyTokenAndAdmin, async (req, res) => {
+router.get("/findAll", verifyTokenAndAdmin, async (req, res) => {
   try {
     GetAllSlots = await Slots.find();
-    res.status(200).json(AllGetSlots);
+    res.status(200).json(GetAllSlots);
   } catch (err) {
     res.status(500).json(err);
   }

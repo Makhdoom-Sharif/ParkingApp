@@ -5,7 +5,9 @@ import { useState } from "react";
 // import "./style.css";
 // import { GetTokenLocal } from "../../requestMethod";
 import { useDispatch, useSelector } from "react-redux";
-import { ComponentChange } from "../../redux/action";
+import { ChangeStep, ComponentChange } from "../../redux/action";
+import Main from "../Cards/Main";
+import ModalDisplay from "../Modal/Modal";
 import Animation from "../SideAnimation/Animation";
 
 type Props = {};
@@ -37,42 +39,52 @@ const Slots = (props: Props) => {
   const [IsScreenSwap, setIsScreenSwap] = useState(false);
   const DetailsUser = useSelector((state: SelectorType) => state?.user);
   const { allSlots } = DetailsUser;
-  const handlePlaceSubmit = (PlaceID: String) => {
-    dispatch(ComponentChange("DateTimeRangeView"));
+  const handlePlaceSubmit = (item: String) => {
+    // dispatch(ComponentChange("DateTimeRangeView"));
+    console.log(item);
+    dispatch(ChangeStep(4));
   };
   return (
-    <div
-      className="container"
-      style={{ flexGrow: "1", display: "flex", width: "100%" }}
-    >
-      <Box
-        component="main"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignContent: "center",
-          alignItems: "center",
-          width: "50%",
-        }}
-      >
-        {allSlots?.map((item, index) => {
-          return (
-            <Button
-              variant="contained"
-              className="button"
-              color="secondary"
-              fullWidth
-              onClick={() => handlePlaceSubmit(item._id)}
-            >
-              <p> {item.SlotNo}</p>
-              <ArrowForwardIosIcon style={{ fontSize: "1rem" }} />
-            </Button>
-          );
-        })}
-      </Box>
-      <Animation />
-    </div>
+    // <Main
+    //   Data={allSlots}
+    //   handleSelect={handlePlaceSubmit}
+    //   area={false}
+    //   place={false}
+    // />
+
+    <ModalDisplay />
+    // <div
+    //   className="container"
+    //   style={{ flexGrow: "1", display: "flex", width: "100%" }}
+    // >
+    //   <Box
+    //     component="main"
+    //     style={{
+    //       display: "flex",
+    //       flexDirection: "column",
+    //       justifyContent: "center",
+    //       alignContent: "center",
+    //       alignItems: "center",
+    //       width: "50%",
+    //     }}
+    //   >
+    //     {allSlots?.map((item, index) => {
+    //       return (
+    //         <Button
+    //           variant="contained"
+    //           className="button"
+    //           color="secondary"
+    //           fullWidth
+    //           onClick={() => handlePlaceSubmit(item._id)}
+    //         >
+    //           <p> {item.SlotNo}</p>
+    //           <ArrowForwardIosIcon style={{ fontSize: "1rem" }} />
+    //         </Button>
+    //       );
+    //     })}
+    //   </Box>
+    //   <Animation />
+    // </div>
   );
 };
 
