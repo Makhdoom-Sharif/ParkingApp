@@ -4,6 +4,7 @@ const SlotSchema = new mongoose.Schema(
   {
     parkingPlaceID: { type: String, required: true },
     slotNo: { type: String, require: true },
+    slotID: { type: String, require: true },
   },
   { timestamps: true }
 );

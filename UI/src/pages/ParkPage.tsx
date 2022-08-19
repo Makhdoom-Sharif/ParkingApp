@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import Footer from "../components/Footer/Footer";
 import ParkingStepper from "../components/ParkingStepper/ParkingStepper";
-import AreaView from "../components/ParkingStepper/ParkingView/AreaView";
-import DateTimeRangeView from "../components/ParkingStepper/ParkingView/DateTimeRangeView";
-import PlaceView from "../components/ParkingStepper/ParkingView/PlaceView";
-import SlotsView from "../components/ParkingStepper/ParkingView/SlotsView";
+// import AreaView from "../components/ParkingStepper/ParkingView/AreaView";
+// import DateTimeRangeView from "../components/ParkingStepper/ParkingView/DateTimeRangeView";
+// import PlaceView from "../components/ParkingStepper/ParkingView/PlaceView";
+// import SlotsView from "../components/ParkingStepper/ParkingView/SlotsView";
 import Title from "../components/Title/Title";
 
 type Props = {};

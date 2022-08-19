@@ -79,3 +79,8 @@ export const ChangeStep = (Data) => ({
   type: type.CHANGE_STEP,
   payload: Data,
 });
+
+export const ConfirmationModal = (Data) => ({
+  type: type.CONFIRMATION_MODAL,
+  payload: Data,
+});

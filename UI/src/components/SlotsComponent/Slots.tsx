@@ -5,7 +5,11 @@ import { useState } from "react";
 // import "./style.css";
 // import { GetTokenLocal } from "../../requestMethod";
 import { useDispatch, useSelector } from "react-redux";
-import { ChangeStep, ComponentChange } from "../../redux/action";
+import {
+  ChangeStep,
+  ComponentChange,
+  ConfirmationModal,
+} from "../../redux/action";
 import Main from "../Cards/Main";
 import ModalDisplay from "../Modal/Modal";
 import Animation from "../SideAnimation/Animation";
@@ -39,20 +43,33 @@ const Slots = (props: Props) => {
   const [IsScreenSwap, setIsScreenSwap] = useState(false);
   const DetailsUser = useSelector((state: SelectorType) => state?.user);
   const { allSlots } = DetailsUser;
+  // const [openModal, setOpenModal] = useState(false);
   const handlePlaceSubmit = (item: String) => {
     // dispatch(ComponentChange("DateTimeRangeView"));
-    console.log(item);
-    dispatch(ChangeStep(4));
-  };
-  return (
-    // <Main
-    //   Data={allSlots}
-    //   handleSelect={handlePlaceSubmit}
-    //   area={false}
-    //   place={false}
-    // />
 
-    <ModalDisplay />
+    console.log(item);
+    dispatch(ConfirmationModal(true));
+    // handleModalDisplay();
+    // dispatch(ChangeStep(4));
+  };
+  // const handleModalDisplay = () => {
+  //   if (openModal) {
+  //     setOpenModal(false);
+  //   } else {
+  //     setOpenModal(true);
+  //   }
+  // };
+  return (
+    <Main
+      Data={allSlots}
+      handleSelect={handlePlaceSubmit}
+      area={false}
+      place={false}
+      // openModal={openModal}
+      // handleModalDisplay={handleModalDisplay}
+    />
+
+    // <ModalDisplay />
     // <div
     //   className="container"
     //   style={{ flexGrow: "1", display: "flex", width: "100%" }}

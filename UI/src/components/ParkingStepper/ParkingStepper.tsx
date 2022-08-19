@@ -8,10 +8,10 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ChangeStep } from "../../redux/action";
-import AreaView from "./ParkingView/AreaView";
-import DateTimeRangeView from "./ParkingView/DateTimeRangeView";
-import PlaceView from "./ParkingView/PlaceView";
-import SlotsView from "./ParkingView/SlotsView";
+import Areas from "../AreaCards/Areas";
+import RangePicker from "../DateTimeRange/RangePicker";
+import ParkingPlaces from "../PlacesComponent/PlacesComponents";
+import Slots from "../SlotsComponent/Slots";
 
 const steps = [
   "Select Area",
@@ -56,41 +56,13 @@ export default function ParkingStepper() {
     return skipped.has(step);
   };
 
-  const handleNext = () => {
-    // dispatch(ChangeStep())
-    // let newSkipped = skipped;
-    // if (isStepSkipped(activeStep)) {
-    //   newSkipped = new Set(newSkipped.values());
-    //   newSkipped.delete(activeStep);
-    // }
-    // setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    // setSkipped(newSkipped);
-  };
-
   const handleBack = () => {
     if (StepNo === 0) {
     } else {
       let x: number = StepNo;
-      // console.log(--x);
       dispatch(ChangeStep(--x));
-      // setActiveStep((prevActiveStep) => prevActiveStep - 1);
     }
   };
-
-  // const handleSkip = () => {
-  //   if (!isStepOptional(activeStep)) {
-  //     // You probably want to guard against something like this,
-  //     // it should never occur unless someone's actively trying to break something.
-  //     throw new Error("You can't skip a step that isn't optional.");
-  //   }
-
-  //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  //   setSkipped((prevSkipped) => {
-  //     const newSkipped = new Set(prevSkipped.values());
-  //     newSkipped.add(activeStep);
-  //     return newSkipped;
-  //   });
-  // };
 
   const handleReset = () => {
     // setActiveStep(0);
@@ -110,7 +82,6 @@ export default function ParkingStepper() {
       >
         <Box
           component={"span"}
-          // size="small"
           sx={{
             color: StepNo === 0 ? "#616161" : "#000 !important",
             display: "flex",
@@ -121,7 +92,6 @@ export default function ParkingStepper() {
             flexGrow: "1",
             paddingLeft: "5px",
           }}
-          // onClick={() => TimeScreenSwapper()}
           onClick={handleBack}
         >
           <KeyboardBackspaceIcon style={{ fontSize: "1.25rem" }} />
@@ -167,50 +137,7 @@ export default function ParkingStepper() {
           })}
         </Stepper>
       </Box>
-      {/* <Box
-        component={"div"}
-        sx={{
-          width: "100% !important",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          alignContent: "center",
-          flexDirection: "row",
-        }}
-      >
-        <Box
-          component={"div"}
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            alignContent: "center",
-            width: "85%",
-          }}
-        >
-          {StepNo !== 0 && (
-            <Box
-              component={"span"}
-              // size="small"
-              sx={{
-                color: "#000",
-                display: "flex",
-                flexDirection: "row",
-                alignContent: "center",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
-              // onClick={() => TimeScreenSwapper()}
-              onClick={handleBack}
-            >
-              <KeyboardBackspaceIcon style={{ fontSize: "1.25rem" }} />
-              <Box component={"p"} sx={{ paddingLeft: "5px" }}>
-                Back
-              </Box>
-            </Box>
-          )}
-        </Box>
-      </Box> */}
+
       {StepNo === steps.length ? (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>
@@ -225,20 +152,17 @@ export default function ParkingStepper() {
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>
             {StepNo === 0 ? (
-              <AreaView />
+              <Areas />
             ) : StepNo === 1 ? (
-              <PlaceView />
+              <ParkingPlaces />
             ) : StepNo === 2 ? (
-              <DateTimeRangeView />
+              <RangePicker />
             ) : (
-              <SlotsView />
+              <Slots />
             )}
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Box sx={{ flex: "1 1 auto" }} />
-            {/* <Button onClick={handleNext}>
-              {StepNo === steps.length - 1 ? "Confirm Booking" : "Next"}
-            </Button> */}
           </Box>
         </React.Fragment>
       )}

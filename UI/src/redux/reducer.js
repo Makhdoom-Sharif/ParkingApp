@@ -16,6 +16,7 @@ const initialState = {
   allSlots: [],
   SelectedPlace: {},
   StepNo: 0,
+  ModalOpen: false,
 };
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -93,6 +94,11 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         StepNo: action.payload,
+      };
+    case type.CONFIRMATION_MODAL:
+      return {
+        ...state,
+        ModalOpen: action.payload,
       };
     default:
       return state;

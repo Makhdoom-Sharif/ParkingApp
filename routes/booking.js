@@ -1,4 +1,5 @@
 const Booking = require("../models/BookedSlots");
+const Slots = require("../models/Slots");
 const {
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
@@ -8,15 +9,15 @@ const router = require("express").Router();
 //Checking Booking
 router.get("/", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const { parkingPlaceID, from, to, slots } = req.query;
-    TotalSlots = Number(slots);
+    const { parkingPlaceID, from, to, Tslots } = req.query;
+    TotalSlots = Number(Tslots);
     start = Number(from);
     end = Number(to);
     // console.log(TotalSlots);
     // console.log(start);
     // console.log(end);
     // console.log(parkingPlaceID);
-    console.log(req.query);
+    // console.log(req.query);
     const alreadyBooked = Booking.find({
       parkingPlaceID: {
         $in: parkingPlaceID,
@@ -39,29 +40,45 @@ router.get("/", verifyTokenAndAuthorization, async (req, res) => {
     });
     // console.log(await alreadyBooked);
     const booked = await alreadyBooked;
-    console.log("=>", booked);
+    console.log("booked=>", booked);
     // res.status(200).json(booked);
     if (booked.length === TotalSlots) {
-      res.status(201).json("No Slots Available");
+      return res.status(201).json("No Slots Available");
     } else {
-      const bookedSlotsNoArray =
-        booked.length === 0
-          ? []
-          : booked.map((item) => {
-              return item.slotNo;
-            });
+      console.log("else block==>", parkingPlaceID);
 
-      const x = TotalSlots;
-      let slotsArray = [];
-      for (let i = 0; i < x; i++) {
-        slotsArray.push(`${i + 1}`);
-      }
-
-      var availableSlotsNo = slotsArray.filter(
-        (x) => !bookedSlotsNoArray.includes(x)
+      const AllSlots = await Slots.find({
+        parkingPlaceID: {
+          $in: parkingPlaceID,
+        },
+      });
+      console.log("All==>", AllSlots);
+      // const AvailableSlots = TotalSlots.map(())
+      const AvailableSlots = AllSlots.filter(
+        ({ _id: id1 }) => !booked.some(({ slotID: id2 }) => id2 === id1)
       );
-      const availableSlotsAmount = TotalSlots - booked.length;
-      res.status(201).json(availableSlotsNo);
+      console.log("==>", AvailableSlots);
+
+      // console.log("==>", AvailableSlots);
+
+      // const bookedSlotsNoArray =
+      //   booked.length === 0
+      //     ? []
+      //     : booked.map((item) => {
+      //         return item.slotNo;
+      //       });
+
+      // const x = TotalSlots;
+      // let slotsArray = [];
+      // for (let i = 0; i < x; i++) {
+      //   slotsArray.push(`${i + 1}`);
+      // }
+
+      // var availableSlotsNo = slotsArray.filter(
+      //   (x) => !bookedSlotsNoArray.includes(x)
+      // );
+      // const availableSlotsAmount = TotalSlots - booked.length;
+      // res.status(201).json(availableSlotsNo);
     }
   } catch (error) {
     res.status(500).json(error);

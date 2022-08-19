@@ -12,6 +12,7 @@ import { Container } from "@mui/system";
 import React, { useState } from "react";
 import "./style.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import ModalDisplay from "../Modal/Modal";
 
 type Props = {
   Data?: {
@@ -22,17 +23,33 @@ type Props = {
     totalSlots?: Number;
     AreaID?: String;
   }[];
-
+  // openModal?: boolean;
   handleSelect: Function;
   area: boolean;
   place: boolean;
+  // handleModalDisplay?: Function;
 };
 const theme = createTheme();
 
 const Main = (props: Props) => {
+  // const [openModal, setOpenModal] = useState(false);
+
   const { Data, handleSelect, area, place } = props;
   // const [data, setData] = useState(area ? AreaData : place ? PlaceData : null);
   console.log("==>", Data);
+  // const handleClick = (item: any) => {
+  //   handleSelect(item);
+  //   if (!area && !place) {
+  //     handleModalDisplay();
+  //   }
+  // };
+  // const handleModalDisplay = () => {
+  //   if (openModal) {
+  //     setOpenModal(false);
+  //   } else {
+  //     setOpenModal(true);
+  //   }
+  // };
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -96,6 +113,7 @@ const Main = (props: Props) => {
             ))}
           </Grid>
         </Container>
+        <ModalDisplay />
       </main>
     </ThemeProvider>
   );
