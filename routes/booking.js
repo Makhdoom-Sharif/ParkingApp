@@ -6,18 +6,13 @@ const {
 } = require("./verifyToken");
 const router = require("express").Router();
 
-//Checking Booking
+//Checking Booking Availability
 router.get("/", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const { parkingPlaceID, from, to, Tslots } = req.query;
     TotalSlots = Number(Tslots);
     start = Number(from);
     end = Number(to);
-    // console.log(TotalSlots);
-    // console.log(start);
-    // console.log(end);
-    // console.log(parkingPlaceID);
-    // console.log(req.query);
     const alreadyBooked = Booking.find({
       parkingPlaceID: {
         $in: parkingPlaceID,
@@ -38,47 +33,20 @@ router.get("/", verifyTokenAndAuthorization, async (req, res) => {
         $gte: end,
       },
     });
-    // console.log(await alreadyBooked);
     const booked = await alreadyBooked;
-    console.log("booked=>", booked);
-    // res.status(200).json(booked);
     if (booked.length === TotalSlots) {
-      return res.status(201).json("No Slots Available");
+      return res.status(201).json([]);
     } else {
-      console.log("else block==>", parkingPlaceID);
-
       const AllSlots = await Slots.find({
         parkingPlaceID: {
           $in: parkingPlaceID,
         },
       });
-      console.log("All==>", AllSlots);
-      // const AvailableSlots = TotalSlots.map(())
       const AvailableSlots = AllSlots.filter(
-        ({ _id: id1 }) => !booked.some(({ slotID: id2 }) => id2 === id1)
+        ({ _id: id1 }) =>
+          !booked.some(({ slotID: id2 }) => id2 === id1.toString())
       );
-      console.log("==>", AvailableSlots);
-
-      // console.log("==>", AvailableSlots);
-
-      // const bookedSlotsNoArray =
-      //   booked.length === 0
-      //     ? []
-      //     : booked.map((item) => {
-      //         return item.slotNo;
-      //       });
-
-      // const x = TotalSlots;
-      // let slotsArray = [];
-      // for (let i = 0; i < x; i++) {
-      //   slotsArray.push(`${i + 1}`);
-      // }
-
-      // var availableSlotsNo = slotsArray.filter(
-      //   (x) => !bookedSlotsNoArray.includes(x)
-      // );
-      // const availableSlotsAmount = TotalSlots - booked.length;
-      // res.status(201).json(availableSlotsNo);
+      return res.status(201).json(AvailableSlots);
     }
   } catch (error) {
     res.status(500).json(error);
@@ -93,6 +61,7 @@ router.post("/new", verifyTokenAndAuthorization, async (req, res) => {
     from: req.body.from,
     to: req.body.to,
     slotNo: req.body.slotNo,
+    slotID: req.body.slotID,
   });
   try {
     const postNewBooking = await newBooking.save();
@@ -135,7 +104,6 @@ router.get("/find", verifyTokenAndAuthorization, async (req, res) => {
           $lt: new Date().getTime(),
         },
       });
-      console.log("if==>", response);
     } else if (qCategory === "pending") {
       response = await Booking.find({
         userID: {
@@ -145,24 +113,16 @@ router.get("/find", verifyTokenAndAuthorization, async (req, res) => {
           $gte: new Date().getTime(),
         },
       });
-      console.log("elseif==>", response);
     } else {
       response = await Booking.find({
         userID: {
           $in: req.body.userID,
         },
       });
-      // console.log("else==>", response);
     }
-    // res.status(200).json(response);
     return response.length > 0
       ? res.status(200).json(response)
       : res.status(200).json("No Booking Available");
-    // if (response.length > 0) {
-    //   res.status(200).json(AllBookingUser);
-    // } else {
-    //   res.status(200).json("No Booking Available");
-    // }
   } catch (err) {
     res.status(500).json(err);
   }

@@ -39,24 +39,36 @@ type SelectorType = {
       AreaID: String;
       totalSlots: Number;
     };
+    BookingData: {
+      AreaID: string;
+      AreaName: string;
+      placeName: string;
+      totalSlots: number;
+      _id: string;
+    }[];
   };
 };
 export default function RangePicker() {
   const dispatch = useDispatch();
-  const { accessToken, SelectedPlace } = useSelector(
+  const { accessToken, BookingData, uid } = useSelector(
     (state: SelectorType) => state?.user
   );
 
   const handleSubmitRange = (from: number | null, to: number | null) => {
     const start = from !== null ? new Date(from).getTime() : 0;
     const end = to !== null ? new Date(to).getTime() : 0;
-    console.log("places=>", SelectedPlace);
+    console.log("places=>", BookingData);
     if (start >= new Date().getTime() && end > new Date().getTime()) {
-      GetAllAvailableSlots(dispatch, accessToken, {
-        start,
-        end,
-        ...SelectedPlace,
-      });
+      GetAllAvailableSlots(
+        dispatch,
+        accessToken,
+        {
+          start,
+          end,
+          ...BookingData,
+        },
+        uid
+      );
       dispatch(ChangeStep(3));
     } else {
       console.log("Invalid range");
@@ -76,7 +88,7 @@ export default function RangePicker() {
       start < end
     ) {
       setDisable(false);
-      console.log(value1);
+      // console.log(value1);
     } else {
       setDisable(true);
     }

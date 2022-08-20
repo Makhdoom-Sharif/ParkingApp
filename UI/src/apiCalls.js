@@ -1,4 +1,5 @@
 import {
+  ChangeStep,
   GetAllAreaFail,
   GetAllAreasInit,
   GetAllAreasSuccess,
@@ -9,6 +10,7 @@ import {
   loginFail,
   loginStart,
   loginSuccess,
+  NewBookingData,
   registerFail,
   registerStart,
   registerSuccess,
@@ -49,18 +51,18 @@ export const register = async (dispatch, Data) => {
   }
 };
 
-export const GetAllPlaces = async (dispatch, AccessTOKEN, AreaID) => {
+export const GetAllPlaces = async (dispatch, AccessTOKEN, item) => {
+  const { _id, AreaName } = item;
   dispatch(GetAllPlacesStart());
-  // console.log("=>", AreaID);
   try {
     const places = await axios.create({
       baseURL: BASE_URL,
       headers: { token: `Bearer ${AccessTOKEN}` },
     });
-    // const Data = { AreaID: AreaID };
-    const data = await places.get(`/places/?AreaID=${AreaID}`);
+    const data = await places.get(`/places/?AreaID=${_id}`);
     dispatch(GetAllPlacesSuccess(data.data));
-    // console.log("data places==>", data);
+    dispatch(NewBookingData({ AreaName: AreaName }));
+    dispatch(ChangeStep(1));
   } catch (err) {
     dispatch(GetAllPlacesFail(err.response.data));
   }
@@ -83,12 +85,16 @@ export const GetAllAreas = async (dispatch, AccessTOKEN) => {
   }
 };
 
-export const GetAllAvailableSlots = async (dispatch, AccessTOKEN, Data) => {
-  // dispatch(GetAllSlotsInit())
+export const GetAllAvailableSlots = async (
+  dispatch,
+  AccessTOKEN,
+  Data,
+  uid
+) => {
   const { start, end, _id, totalSlots, AreaID, placeName } = Data;
-  console.log("api==>", Data);
+  // console.log("api==>", Data);
   try {
-    // console.log("==>", Data);
+    console.log("Date Time==>", Data);
     // console.log("==>", dispatch);
     // console.log("==>", AccessTOKEN);
     // console.log(start);
@@ -103,7 +109,13 @@ export const GetAllAvailableSlots = async (dispatch, AccessTOKEN, Data) => {
     const data = await Slots.get(
       `/newbooking/?parkingPlaceID=${_id}&from=${start}&to=${end}&slots=${totalSlots}`
     );
-    dispatch(GetAllAvailableSlotsArray(data.data));
+    const item = {
+      ...{ Data: Data },
+
+      ...{ SlotsData: data.data },
+    };
+    console.log("merge==>", item);
+    dispatch(GetAllAvailableSlotsArray(item));
   } catch (e) {
     console.log(e);
   }

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { GetAllPlaces } from "../../apiCalls";
-import { ChangeStep } from "../../redux/action";
+import { ChangeStep, NewBookingData } from "../../redux/action";
 import Main from "../Cards/Main";
 type SelectorType = {
   user: {
@@ -29,25 +29,25 @@ type itemType = {
 
 export default function Areas() {
   const dispatch = useDispatch();
-  const { allAreas, accessToken, StepNo } = useSelector(
+  const { allAreas, accessToken } = useSelector(
     (state: SelectorType) => state?.user
   );
-  const handleAreaSelect = (item: itemType) => {
-    console.log(item._id);
-    GetAllPlaces(dispatch, accessToken, item._id)
-      .then(() => {
-        dispatch(ChangeStep(1));
-        console.log(item);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  // const handleAreaSelect = (item: itemType) => {
+  //   const Data = { AreaName: item.AreaName };
+  //   GetAllPlaces(dispatch, accessToken, item._id)
+  //     .then(() => {
+  //       dispatch(NewBookingData(Data));
+  //       dispatch(ChangeStep(1));
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
 
   return (
     <Main
       Data={allAreas}
-      handleSelect={handleAreaSelect}
+      // handleSelect={handleAreaSelect}
       area={true}
       place={false}
     />

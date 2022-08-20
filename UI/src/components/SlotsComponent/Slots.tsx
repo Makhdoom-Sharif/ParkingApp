@@ -9,6 +9,7 @@ import {
   ChangeStep,
   ComponentChange,
   ConfirmationModal,
+  NewBookingData,
 } from "../../redux/action";
 import Main from "../Cards/Main";
 import ModalDisplay from "../Modal/Modal";
@@ -35,22 +36,33 @@ type SelectorType = {
       SlotNo: string;
       parkingPlaceID: String;
     }[];
+    BookingData: {
+      parkingPlaceID: string;
+      userID: string;
+      from: number;
+      to: number;
+    }[];
   };
 };
 
+type item = {
+  parkingPlaceID: String;
+  slotNo: String;
+  _id: String;
+};
 const Slots = (props: Props) => {
   const dispatch = useDispatch();
   const [IsScreenSwap, setIsScreenSwap] = useState(false);
   const DetailsUser = useSelector((state: SelectorType) => state?.user);
-  const { allSlots } = DetailsUser;
-  // const [openModal, setOpenModal] = useState(false);
-  const handlePlaceSubmit = (item: String) => {
-    // dispatch(ComponentChange("DateTimeRangeView"));
+  const { allSlots, BookingData } = DetailsUser;
+  console.log(allSlots);
 
-    console.log(item);
+  // const [openModal, setOpenModal] = useState(false);
+  const handleSlotSubmit = (item: String) => {
+    const Data = { ...item, ...BookingData };
+    console.log(Data);
+    dispatch(NewBookingData(Data));
     dispatch(ConfirmationModal(true));
-    // handleModalDisplay();
-    // dispatch(ChangeStep(4));
   };
   // const handleModalDisplay = () => {
   //   if (openModal) {
@@ -62,11 +74,9 @@ const Slots = (props: Props) => {
   return (
     <Main
       Data={allSlots}
-      handleSelect={handlePlaceSubmit}
+      // handleSelect={handlePlaceSubmit}
       area={false}
       place={false}
-      // openModal={openModal}
-      // handleModalDisplay={handleModalDisplay}
     />
 
     // <ModalDisplay />

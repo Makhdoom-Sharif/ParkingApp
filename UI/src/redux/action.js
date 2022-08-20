@@ -73,13 +73,19 @@ export const SelectedPlace = (Data) => ({
 
 export const GetAllAvailableSlotsArray = (Data) => ({
   type: type.GET_ALL_AVAILABLE_SLOTS,
-  payload: Data,
+  payload: {
+    SlotsData: Data.SlotsData,
+    BookingData: Data.Data,
+  },
 });
 export const ChangeStep = (Data) => ({
   type: type.CHANGE_STEP,
   payload: Data,
 });
-
+export const NewBookingData = (Data) => ({
+  type: type.NEW_BOOKING_DATA,
+  payload: Data,
+});
 export const ConfirmationModal = (Data) => ({
   type: type.CONFIRMATION_MODAL,
   payload: Data,

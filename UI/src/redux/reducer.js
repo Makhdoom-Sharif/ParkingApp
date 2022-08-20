@@ -17,6 +17,7 @@ const initialState = {
   SelectedPlace: {},
   StepNo: 0,
   ModalOpen: false,
+  BookingData: {},
 };
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -88,7 +89,8 @@ const userReducer = (state = initialState, action) => {
     case type.GET_ALL_AVAILABLE_SLOTS:
       return {
         ...state,
-        allSlots: action.payload,
+        allSlots: action.payload.SlotsData,
+        BookingData: action.payload.BookingData,
       };
     case type.CHANGE_STEP:
       return {
@@ -99,6 +101,11 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         ModalOpen: action.payload,
+      };
+    case type.NEW_BOOKING_DATA:
+      return {
+        ...state,
+        BookingData: action.payload,
       };
     default:
       return state;

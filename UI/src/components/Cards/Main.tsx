@@ -13,6 +13,8 @@ import React, { useState } from "react";
 import "./style.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ModalDisplay from "../Modal/Modal";
+import { useSelector } from "react-redux";
+import Button from "../Button/Button";
 
 type Props = {
   Data?: {
@@ -22,34 +24,25 @@ type Props = {
     placeName?: string;
     totalSlots?: Number;
     AreaID?: String;
+    slotNo?: String;
+    parkingPlaceID?: String;
   }[];
   // openModal?: boolean;
-  handleSelect: Function;
+  // handleSelect: Function;
   area: boolean;
   place: boolean;
-  // handleModalDisplay?: Function;
+};
+
+type SelectorType = {
+  user: {
+    loading: boolean;
+  };
 };
 const theme = createTheme();
 
 const Main = (props: Props) => {
-  // const [openModal, setOpenModal] = useState(false);
-
-  const { Data, handleSelect, area, place } = props;
-  // const [data, setData] = useState(area ? AreaData : place ? PlaceData : null);
-  console.log("==>", Data);
-  // const handleClick = (item: any) => {
-  //   handleSelect(item);
-  //   if (!area && !place) {
-  //     handleModalDisplay();
-  //   }
-  // };
-  // const handleModalDisplay = () => {
-  //   if (openModal) {
-  //     setOpenModal(false);
-  //   } else {
-  //     setOpenModal(true);
-  //   }
-  // };
+  const { Data, area, place } = props;
+  const { loading } = useSelector((state: SelectorType) => state?.user);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -75,7 +68,11 @@ const Main = (props: Props) => {
                     >
                       <>
                         {!area && !place && `Slot No:`}{" "}
-                        {area ? item.AreaName : place ? item.placeName : item}
+                        {area
+                          ? item.AreaName
+                          : place
+                          ? item.placeName
+                          : item.slotNo}
                       </>
                     </Typography>
                     {(area || place) && (
@@ -88,9 +85,8 @@ const Main = (props: Props) => {
                     )}
                   </CardContent>
                   <CardActions>
-                    <LoadingButton
+                    {/*  <LoadingButton
                       variant="contained"
-                      // color="secondary"
                       fullWidth
                       loadingIndicator={
                         <CircularProgress style={{ color: "#fff" }} size={16} />
@@ -101,12 +97,12 @@ const Main = (props: Props) => {
                       }}
                       type="submit"
                       disabled={false}
-                      loading={false}
+                      loading={loading}
                       onClick={() => handleSelect(item)}
                     >
                       Select
-                    </LoadingButton>
-                    {/* <Button size="small">Edit</Button> */}
+                    </LoadingButton> */}
+                    <Button area={area} place={place} item={item} />
                   </CardActions>
                 </Card>
               </Grid>
