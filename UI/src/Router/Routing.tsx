@@ -26,7 +26,6 @@ type SelectorType = {
 const Routing = (props: Props) => {
   const { loginStatus } = useSelector((state: SelectorType) => state?.user);
   return (
-    // <div>
     <div
       style={{
         display: "flex",
@@ -37,12 +36,7 @@ const Routing = (props: Props) => {
       <NavBar />
       {loginStatus ? (
         <Routes>
-          {/* <Route path="/Park" element={<AreasView />}></Route> */}
           <Route path="/Park" element={<ParkPage />}></Route>
-          {/* <Route
-            path="/parkingslots"
-            element={<ParkingSlotsMainPage />}
-          ></Route> */}
           <Route path="/ViewBooking" element={<ViewBookingPage />}></Route>
           <Route path="/HowItWorks" element={<HowItWorks />}></Route>
           <Route path="*" element={<Navigate replace to="/Park" />} />
@@ -55,7 +49,6 @@ const Routing = (props: Props) => {
         </Routes>
       )}
     </div>
-    // {/* </div> */}
   );
 };
 

@@ -9,7 +9,7 @@ const ViewBookingPage = (props: Props) => {
   return (
     <>
       <div style={{ flexGrow: "1", display: "flex", flexDirection: "column" }}>
-        <Title titleText="Your Bookings" />
+        {/* <Title titleText="Your Bookings" /> */}
         <TabNavigation />
       </div>
       <Footer />
