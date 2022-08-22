@@ -18,6 +18,8 @@ const initialState = {
   StepNo: 0,
   ModalOpen: false,
   BookingData: {},
+  pendingBookings: [],
+  history: [],
 };
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -106,6 +108,16 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         BookingData: action.payload,
+      };
+    case type.GET_ALL_PENDING_BOOKING:
+      return {
+        ...state,
+        pendingBookings: action.payload,
+      };
+    case type.GET_ALL_HISTORY:
+      return {
+        ...state,
+        history: action.payload,
       };
     default:
       return state;

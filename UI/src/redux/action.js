@@ -90,3 +90,12 @@ export const ConfirmationModal = (Data) => ({
   type: type.CONFIRMATION_MODAL,
   payload: Data,
 });
+
+export const GetAllPendingBooking = (Data) => ({
+  type: type.GET_ALL_PENDING_BOOKING,
+  payload: Data,
+});
+export const GetAllHistory = (Data) => ({
+  type: type.GET_ALL_HISTORY,
+  payload: Data,
+});

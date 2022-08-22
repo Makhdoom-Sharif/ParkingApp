@@ -89,16 +89,16 @@ router.delete("/", verifyTokenAndAuthorization, async (req, res) => {
 
 //Get User Booking
 router.get("/find", verifyTokenAndAuthorization, async (req, res) => {
-  const qCategory = req.query.category;
+  // const qCategory = req.query.category;
   // console.log(qCategory);
   try {
     let response;
+    const { qCategory, userID } = req.query;
     console.log(req.query);
-
-    if (req.query.category === "history") {
+    if (qCategory === "history") {
       response = await Booking.find({
         userID: {
-          $in: req.body.userID,
+          $in: userID,
         },
         to: {
           $lt: new Date().getTime(),
@@ -107,7 +107,7 @@ router.get("/find", verifyTokenAndAuthorization, async (req, res) => {
     } else if (qCategory === "pending") {
       response = await Booking.find({
         userID: {
-          $in: req.body.userID,
+          $in: userID,
         },
         to: {
           $gte: new Date().getTime(),
@@ -116,13 +116,11 @@ router.get("/find", verifyTokenAndAuthorization, async (req, res) => {
     } else {
       response = await Booking.find({
         userID: {
-          $in: req.body.userID,
+          $in: userID,
         },
       });
     }
-    return response.length > 0
-      ? res.status(200).json(response)
-      : res.status(200).json("No Booking Available");
+    return res.status(200).json(response);
   } catch (err) {
     res.status(500).json(err);
   }

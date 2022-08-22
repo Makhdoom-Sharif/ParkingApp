@@ -8,7 +8,14 @@ type Props = {};
 const ViewBookingPage = (props: Props) => {
   return (
     <>
-      <div style={{ flexGrow: "1", display: "flex", flexDirection: "column" }}>
+      <div
+        style={{
+          flexGrow: "1",
+          display: "flex",
+          flexDirection: "column",
+          // width: "70%",
+        }}
+      >
         {/* <Title titleText="Your Bookings" /> */}
         <TabNavigation />
       </div>

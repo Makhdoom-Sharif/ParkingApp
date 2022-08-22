@@ -4,6 +4,8 @@ import {
   GetAllAreasInit,
   GetAllAreasSuccess,
   GetAllAvailableSlotsArray,
+  GetAllHistory,
+  GetAllPendingBooking,
   GetAllPlacesFail,
   GetAllPlacesStart,
   GetAllPlacesSuccess,
@@ -28,6 +30,7 @@ export const login = async (dispatch, Data) => {
     dispatch(loginSuccess(data));
     // GetAllPlaces(dispatch, data.accessToken);
     GetAllAreas(dispatch, data.accessToken);
+    // GetUserBookings();
   } catch (e) {
     dispatch(loginFail(e.response.data));
   }
@@ -92,16 +95,8 @@ export const GetAllAvailableSlots = async (
   uid
 ) => {
   const { start, end, _id, totalSlots, AreaID, placeName } = Data;
-  // console.log("api==>", Data);
   try {
     console.log("Date Time==>", Data);
-    // console.log("==>", dispatch);
-    // console.log("==>", AccessTOKEN);
-    // console.log(start);
-    // console.log(end);
-    // console.log(_id);
-    // console.log(totalSlots);
-
     const Slots = await axios.create({
       baseURL: BASE_URL,
       headers: { token: `Bearer ${AccessTOKEN}` },
@@ -116,6 +111,25 @@ export const GetAllAvailableSlots = async (
     };
     console.log("merge==>", item);
     dispatch(GetAllAvailableSlotsArray(item));
+  } catch (e) {
+    console.log(e);
+  }
+};
+export const GetUserBookings = async (Data) => {
+  const { AccessTOKEN, qCategory, userID, dispatch } = Data;
+  try {
+    const GetBookings = await axios.create({
+      baseURL: BASE_URL,
+      headers: { token: `Bearer ${AccessTOKEN}` },
+    });
+
+    const data = await GetBookings.get(
+      `/newbooking/find?qCategory=${qCategory}&userID=${userID}`
+    );
+    console.log(data.data);
+    qCategory === "pending"
+      ? dispatch(GetAllPendingBooking(data.data))
+      : dispatch(GetAllHistory(data.data));
   } catch (e) {
     console.log(e);
   }
