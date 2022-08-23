@@ -1,18 +1,34 @@
 import { Box } from "@mui/system";
 import React from "react";
+import { useSelector } from "react-redux";
+import NoDataFoundView from "../NoDataFoundView/NoDataFoundView";
 import DisplayBookings from "./DisplayBookings";
 
 type Props = {};
-
+type SelectorType = {
+  user: {
+    history: {
+      _id?: string;
+      userID?: string;
+      from?: number;
+      to?: number;
+      slotNo?: string;
+      slotID?: string;
+      AreaName?: string;
+      placeName?: string;
+    }[];
+  };
+};
 const History = (props: Props) => {
+  const { history } = useSelector((state: SelectorType) => state?.user);
   return (
-    <div>
-      <Box
-        component={"img"}
-        src="https://i.ibb.co/K02D7Gw/history-Not-Found.png"
-      ></Box>
-      {/* <DisplayBookings /> */}
-    </div>
+    <>
+      {history.length > 0 ? (
+        <DisplayBookings Data={history} />
+      ) : (
+        <NoDataFoundView />
+      )}
+    </>
   );
 };
 

@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema(
   {
+    AreaName: { type: String, required: true },
+    placeName: { type: String, required: true },
     parkingPlaceID: { type: String, required: true },
     userID: { type: String, required: true },
     from: { type: Number, default: Date.now },

@@ -99,3 +99,8 @@ export const GetAllHistory = (Data) => ({
   type: type.GET_ALL_HISTORY,
   payload: Data,
 });
+
+// export const DeleteBookingSuccess = (Data) => ({
+//   type: type.DELETE_BOOKING_SUCCESS,
+//   payload:Data
+// })

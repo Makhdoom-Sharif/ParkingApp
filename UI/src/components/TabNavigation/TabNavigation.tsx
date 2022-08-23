@@ -100,10 +100,10 @@ export default function TabNavigation() {
           </TabList>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <TabPanel value="1" sx={{ width: "70%" }}>
+          <TabPanel value="1" sx={{ width: "70%", minHeight: "70vh" }}>
             <PendingBooking />
           </TabPanel>
-          <TabPanel value="2" sx={{ width: "70%" }}>
+          <TabPanel value="2" sx={{ width: "70%", minHeight: "70vh" }}>
             <History />
           </TabPanel>
         </Box>

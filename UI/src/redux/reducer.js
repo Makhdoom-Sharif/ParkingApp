@@ -65,6 +65,15 @@ const userReducer = (state = initialState, action) => {
         accessToken: "",
         errorMessage: "",
         allPlaces: [],
+        allAreas: [],
+        ComponentChange: "",
+        allSlots: [],
+        SelectedPlace: {},
+        StepNo: 0,
+        ModalOpen: false,
+        BookingData: {},
+        pendingBookings: [],
+        history: [],
       };
     case type.GET_ALL_PLACES_SUCCESS:
       return {
@@ -119,6 +128,11 @@ const userReducer = (state = initialState, action) => {
         ...state,
         history: action.payload,
       };
+    // case type.DELETE_BOOKING_SUCCESS:
+    //   return {
+    //     ...state,
+
+    //   }
     default:
       return state;
   }

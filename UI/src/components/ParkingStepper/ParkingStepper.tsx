@@ -94,8 +94,30 @@ export default function ParkingStepper() {
           }}
           onClick={handleBack}
         >
-          <KeyboardBackspaceIcon style={{ fontSize: "1.25rem" }} />
-          <Box component={"p"} sx={{ paddingLeft: "5px" }}>
+          <KeyboardBackspaceIcon
+            sx={{
+              fontSize: {
+                xs: "0.5rem",
+                sm: "0.75rem",
+                md: "1rem",
+                lg: "1.25rem;",
+                xl: "1.25rem;",
+              },
+            }}
+          />
+          <Box
+            component={"p"}
+            sx={{
+              paddingLeft: "5px",
+              fontSize: {
+                xs: "0.5rem",
+                sm: "0.75rem",
+                md: "1rem",
+                lg: "1.25rem;",
+                xl: "1.25rem;",
+              },
+            }}
+          >
             Back
           </Box>
         </Box>

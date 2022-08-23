@@ -187,7 +187,7 @@ export default function RangePicker() {
             </Box>
             <LoadingButton
               variant="contained"
-              color="success"
+              color="info"
               onClick={() => handleSubmitRange(value1, value2)}
               sx={{
                 width: "70%",

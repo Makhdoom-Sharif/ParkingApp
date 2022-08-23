@@ -56,6 +56,8 @@ router.get("/", verifyTokenAndAuthorization, async (req, res) => {
 // Post New Booking
 router.post("/new", verifyTokenAndAuthorization, async (req, res) => {
   const newBooking = new Booking({
+    AreaName: req.body.AreaName,
+    placeName: req.body.placeName,
     parkingPlaceID: req.body.parkingPlaceID,
     userID: req.body.userID,
     from: req.body.from,
@@ -73,14 +75,17 @@ router.post("/new", verifyTokenAndAuthorization, async (req, res) => {
 
 //Delete Booking
 router.delete("/", verifyTokenAndAuthorization, async (req, res) => {
+  const { BookingID, userID } = req.query;
   try {
-    const booking = await Booking.findById(req.body.BookingID);
-    const { userID } = booking;
-    if (userID === req.body.userID) {
-      await Booking.findByIdAndDelete(req.body.BookingID);
+    // console.log(req.query);
+    const booking = await Booking.findById(BookingID);
+    // const { userID } = booking;
+    console.log(booking);
+    if (booking.userID === userID) {
+      await Booking.findByIdAndDelete(BookingID);
       res.status(200).json("Booking has been cancelled");
     } else {
-      res.status(201).json("You're not authenticated");
+      res.status(500).json("You're not authenticated");
     }
   } catch (err) {
     res.status(500).json("No Booking Found");

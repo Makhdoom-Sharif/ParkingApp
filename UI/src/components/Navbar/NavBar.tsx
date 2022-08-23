@@ -46,7 +46,7 @@ export default function NavBar({}: Props) {
 
   const location: locationProps = useLocation();
   const path = location?.pathname;
-  console.log(path);
+  // console.log(path);
   return (
     <Box sx={{ display: "flex", flexDirection: "row" }}>
       <Box
@@ -57,9 +57,16 @@ export default function NavBar({}: Props) {
           padding: "10px",
           alignContent: "center",
           alignItems: "center",
+          fontSize: {
+            xs: "1.5rem",
+            sm: "1.5rem",
+            md: "1.75rem",
+            lg: "2rem",
+            xl: "2rem",
+          },
         }}
       >
-        <SpaIcon sx={{ color: "#72BE44", fontSize: "2rem" }} />
+        <SpaIcon sx={{ color: "#72BE44" }} />
         <Box component={"span"}>Park</Box>
         <Box component={"span"} sx={{ color: "#72BE44" }}>
           ea

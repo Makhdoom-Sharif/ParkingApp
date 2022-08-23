@@ -5,7 +5,10 @@ import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { ConfirmationModal } from "../../redux/action";
+import { PostNewBooking } from "../../apiCalls";
+import { ChangeStep, ConfirmationModal } from "../../redux/action";
+import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -32,14 +35,33 @@ type SelectorType = {
       totalSlots?: number;
       _id?: string;
     };
+    accessToken: string;
+    uid: string;
   };
 };
 export default function ModalDisplay() {
-  const { BookingData, ModalOpen } = useSelector(
+  const { BookingData, ModalOpen, accessToken, uid } = useSelector(
     (state: SelectorType) => state?.user
   );
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClose = () => dispatch(ConfirmationModal(false));
+  const handleSubmit = async () => {
+    // console.log("first");
+    try {
+      await PostNewBooking({ ...BookingData, uid, accessToken }).then(() => {
+        swal("Your booking has been regeistered!", {
+          icon: "success",
+        }).then(() => {
+          navigate("/ViewBooking");
+          dispatch(ConfirmationModal(false));
+          dispatch(ChangeStep(0));
+        });
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const Startdate = new Date(BookingData?.start ? BookingData.start : 0);
   const Start =
     "Date: " +
@@ -320,9 +342,6 @@ export default function ModalDisplay() {
               >
                 <Box
                   component={"span"}
-                  // size="small"
-                  // variant="contained"
-                  // color="success"
                   sx={{
                     borderRight: "1px solid rgba(0, 0, 0, 0.12)",
                     width: "50%",
@@ -332,6 +351,7 @@ export default function ModalDisplay() {
                     color: "#72BE44",
                     cursor: "pointer",
                   }}
+                  onClick={handleSubmit}
                 >
                   Confrim
                 </Box>
@@ -357,4 +377,7 @@ export default function ModalDisplay() {
       </Modal>
     </div>
   );
+}
+function to(to: any, arg1: string) {
+  throw new Error("Function not implemented.");
 }
