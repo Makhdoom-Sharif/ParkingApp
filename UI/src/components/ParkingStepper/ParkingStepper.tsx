@@ -44,7 +44,7 @@ type SelectorType = {
 export default function ParkingStepper() {
   const dispatch = useDispatch();
   const { StepNo } = useSelector((state: SelectorType) => state?.user);
-
+  const displayStep: number = StepNo;
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
 
@@ -74,9 +74,16 @@ export default function ParkingStepper() {
         component={"div"}
         sx={{
           display: "flex",
-          flexDirection: "row",
+          flexDirection: {
+            xl: "row",
+            l: "row",
+            md: "row",
+            sm: "row",
+            xs: "column",
+          },
+
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: { sm: "center", xs: "flex-start" },
           alignContent: "center",
         }}
       >
@@ -96,33 +103,48 @@ export default function ParkingStepper() {
         >
           <KeyboardBackspaceIcon
             sx={{
-              fontSize: {
-                xs: "0.5rem",
-                sm: "0.75rem",
-                md: "1rem",
-                lg: "1.25rem;",
-                xl: "1.25rem;",
-              },
+              fontSize: { sm: "1.25rem", xs: "1rem" },
             }}
           />
           <Box
             component={"p"}
             sx={{
               paddingLeft: "5px",
-              fontSize: {
-                xs: "0.5rem",
-                sm: "0.75rem",
-                md: "1rem",
-                lg: "1.25rem;",
-                xl: "1.25rem;",
-              },
+              fontSize: { sm: "1.25rem", xs: "1rem" },
             }}
           >
             Back
           </Box>
         </Box>
-
-        <Stepper activeStep={StepNo} sx={{ width: "80%", marginRight: "10%" }}>
+        <Box
+          sx={{
+            width: "100%",
+            color: "#fff",
+            backgroundColor: "#000",
+            display: {
+              l: "none",
+              sm: "none",
+              xs: "flex",
+            },
+            justifyContent: "center",
+            alignContent: "center",
+            alignItems: "center",
+            height: "40px",
+          }}
+        >
+          {`${displayStep + 1}/${steps.length} ${steps[StepNo]}`}
+        </Box>
+        <Stepper
+          activeStep={StepNo}
+          sx={{
+            width: "80%",
+            marginRight: "10%",
+            display: {
+              sm: "flex",
+              xs: "none",
+            },
+          }}
+        >
           {steps.map((label, index) => {
             const stepProps: { completed?: boolean } = {};
             const labelProps: {
@@ -142,15 +164,21 @@ export default function ParkingStepper() {
                   },
                   "& .css-108ml8o-MuiSvgIcon-root-MuiStepIcon-root": {
                     color: "#616161 !important",
+                    fontSize: "1.25rem",
                   },
                   "& .css-108ml8o-MuiSvgIcon-root-MuiStepIcon-root.Mui-active":
                     {
                       color: "#000 !important",
+                      fontSize: "1.25rem",
                     },
                   "& .css-108ml8o-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed":
                     {
                       color: "#000 !important",
+                      fontSize: "1.25rem",
                     },
+                  ".css-qivjh0-MuiStepLabel-label": {
+                    fontSize: "0.875rem",
+                  },
                 }}
               >
                 <StepLabel {...labelProps}>{label}</StepLabel>

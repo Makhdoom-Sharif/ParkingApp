@@ -2,6 +2,7 @@ import SpaIcon from "@mui/icons-material/Spa";
 import { Box } from "@mui/system";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import MobileDrawer from "./Drawer/Drawer";
 import Drawer from "./Drawer/Drawer";
 import AccountMenu from "./DropDown";
 type Props = {};
@@ -29,13 +30,13 @@ export default function NavBar({}: Props) {
   );
 
   const itemStyle: object = {
-    fontSize: "20px",
+    fontSize: { md: "15px", l: "20px", xl: "20px" },
     cursor: "pointer",
   };
 
   const itemSelectedStyle: object = {
     color: "#000",
-    fontSize: "20px",
+    fontSize: { md: "15px", l: "20px", xl: "20px" },
     cursor: "pointer",
     textDecoration: "underline",
     webkitTextDecorationColor: "#72BE44",
@@ -49,6 +50,7 @@ export default function NavBar({}: Props) {
   // console.log(path);
   return (
     <Box sx={{ display: "flex", flexDirection: "row" }}>
+      <MobileDrawer />
       <Box
         component={"h1"}
         sx={{
@@ -66,15 +68,15 @@ export default function NavBar({}: Props) {
           },
         }}
       >
-        <SpaIcon sx={{ color: "#72BE44" }} />
+        <SpaIcon sx={{ color: "#4056C8" }} />
         <Box component={"span"}>Park</Box>
-        <Box component={"span"} sx={{ color: "#72BE44" }}>
+        <Box component={"span"} sx={{ color: "#4056C8" }}>
           ea
         </Box>
       </Box>
       <Box
         sx={{
-          display: "flex",
+          display: "none",
           flexDirection: "row",
           alignContent: "center",
           alignItems: "center",
@@ -132,7 +134,7 @@ export default function NavBar({}: Props) {
         {/* < Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                 <p>{username}</p> */}
 
-        <Drawer />
+        {/* <Drawer /> */}
       </Box>
       {loginStatus && <AccountMenu />}
     </Box>

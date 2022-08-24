@@ -1,11 +1,13 @@
+import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
+import Footer from "../components/Footer/Footer";
 import NavBar from "../components/Navbar/NavBar";
 import HowItWorks from "../pages/HowItWorks";
-import LoginPage from "../pages/LoginPage";
+import AuthPage from "../pages/AuthPage";
 import ParkingSlotsMainPage from "../pages/ParkingSlotsMainPage";
 import ParkPage from "../pages/ParkPage";
-import RegisterPage from "../pages/RegisterPage";
+// import RegisterPage from "../pages/RegisterPage";
 import ViewBookingPage from "../pages/ViewBookingPage";
 
 type Props = {};
@@ -34,20 +36,30 @@ const Routing = (props: Props) => {
       }}
     >
       <NavBar />
-      {loginStatus ? (
-        <Routes>
-          <Route path="/Park" element={<ParkPage />}></Route>
-          <Route path="/ViewBooking" element={<ViewBookingPage />}></Route>
-          <Route path="/HowItWorks" element={<HowItWorks />}></Route>
-          <Route path="*" element={<Navigate replace to="/Park" />} />
-        </Routes>
-      ) : (
-        <Routes>
-          <Route path="/Login" element={<LoginPage />}></Route>
-          <Route path="/Register" element={<RegisterPage />}></Route>
-          <Route path="*" element={<Navigate replace to="/Login" />} />
-        </Routes>
-      )}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          alignContent: "center",
+          flexGrow: 1,
+        }}
+      >
+        {loginStatus ? (
+          <Routes>
+            <Route path="/Park" element={<ParkPage />}></Route>
+            <Route path="/ViewBooking" element={<ViewBookingPage />}></Route>
+            <Route path="/HowItWorks" element={<HowItWorks />}></Route>
+            <Route path="*" element={<Navigate replace to="/Park" />} />
+          </Routes>
+        ) : (
+          <Routes>
+            <Route path="/Login" element={<AuthPage />}></Route>
+            <Route path="*" element={<Navigate replace to="/Login" />} />
+          </Routes>
+        )}
+      </Box>
+      <Footer />
     </div>
   );
 };

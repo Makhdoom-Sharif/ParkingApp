@@ -62,17 +62,6 @@ export default function AccountMenu() {
           width: "10%",
         }}
       >
-        {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography> */}
-        {/* <div
-          style={{
-            flexGrow: 1,
-            display: "flex",
-            alignContent: "center",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "row",
-          }}
-        > */}
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
@@ -82,7 +71,14 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 40, height: 40 }}>M</Avatar>
+            <Avatar
+              sx={{
+                width: { xs: 25, sm: 30, md: 40, l: 40, xl: 40 },
+                height: { xs: 25, sm: 30, md: 40, l: 40, xl: 40 },
+              }}
+            >
+              M
+            </Avatar>
           </IconButton>
         </Tooltip>
 

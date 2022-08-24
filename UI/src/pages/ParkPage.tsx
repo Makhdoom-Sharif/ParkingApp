@@ -33,7 +33,7 @@ const ParkPage = (props: Props) => {
   );
   return (
     <>
-      <div style={{ flexGrow: "1", display: "flex", flexDirection: "column" }}>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <Title titleText="New Booking" />
 
         <ParkingStepper />
