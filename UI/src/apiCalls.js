@@ -20,7 +20,7 @@ import {
 import { publicRequest } from "./requestMethod";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api/";
+const BASE_URL = "http://localhost:5001/api/";
 
 export const login = async (dispatch, Data) => {
   dispatch(loginStart());

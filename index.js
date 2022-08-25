@@ -31,6 +31,6 @@ app.use("/api/places", PlacesRoute);
 app.use("/api/area", AreaRoute);
 app.use("/api/slot", SlotsRoute);
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT || 5001, () => {
   console.log("Backend server is runing");
 });

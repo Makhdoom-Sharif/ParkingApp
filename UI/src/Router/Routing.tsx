@@ -9,6 +9,7 @@ import ParkingSlotsMainPage from "../pages/ParkingSlotsMainPage";
 import ParkPage from "../pages/ParkPage";
 // import RegisterPage from "../pages/RegisterPage";
 import ViewBookingPage from "../pages/ViewBookingPage";
+import Home from "../pages/Home";
 
 type Props = {};
 type SelectorType = {
@@ -47,10 +48,11 @@ const Routing = (props: Props) => {
       >
         {loginStatus ? (
           <Routes>
+            <Route path="/Home" element={<Home />}></Route>
             <Route path="/Park" element={<ParkPage />}></Route>
             <Route path="/ViewBooking" element={<ViewBookingPage />}></Route>
             <Route path="/HowItWorks" element={<HowItWorks />}></Route>
-            <Route path="*" element={<Navigate replace to="/Park" />} />
+            <Route path="*" element={<Navigate replace to="/Home" />} />
           </Routes>
         ) : (
           <Routes>

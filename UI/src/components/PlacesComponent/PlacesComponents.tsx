@@ -11,7 +11,7 @@ import {
   NewBookingData,
   SelectedPlace,
 } from "../../redux/action";
-import Animation from "../SideAnimation/Animation";
+// import Animation from "../SideAnimation/Animation";
 import Main from "../Cards/Main";
 
 type Props = {};

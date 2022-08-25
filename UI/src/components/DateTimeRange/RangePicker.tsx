@@ -7,7 +7,7 @@ import { Box } from "@mui/system";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { Button, IconButton, Paper } from "@mui/material";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-import Animation from "../SideAnimation/Animation";
+// import Animation from "../SideAnimation/Animation";
 import { useDispatch, useSelector } from "react-redux";
 import { ChangeStep, ComponentChange } from "../../redux/action";
 import { GetAllAvailableSlots } from "../../apiCalls";
@@ -205,7 +205,7 @@ export default function RangePicker() {
           </Box>
         </Box>
       </Box>
-      <Animation />
+      {/* <Animation /> */}
     </div>
   );
 }

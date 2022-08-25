@@ -1,0 +1,71 @@
+.homeContainer {
+  background-image: url("https://i.ibb.co/RbtRZpc/istockphoto-1138561454-612x612.jpg");
+  width: 100%;
+  min-height: 85vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+.homeContainerFade {
+  background-color: #282c34ad;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.homeMain {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  align-items: center;
+}
+.homeCenter {
+  width: 80%;
+  font-size: 4rem;
+  color: #fff;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-content: center;
+}
+.homeCenterHeading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.homeCenterText {
+  font-size: 1.25rem;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 800px) {
+  .homeCenter {
+    font-size: 3rem;
+  }
+  .homeCenterText {
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 590px) {
+  .homeCenter {
+    width: 100%;
+    font-size: 2.5rem;
+    align-items: center;
+    align-content: center;
+  }
+  .homeCenterText {
+    font-size: 0.75rem;
+    align-items: center;
+  }
+  .homeCenterHeading {
+    align-items: center;
+  }
+}

@@ -1,0 +1,113 @@
+.NavBarContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.NavBarLeftContainer {
+  width: 30%;
+  background-color: #f8f8fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.NavBarLogoContainer {
+  display: flex;
+  flex-flow: 1;
+  padding: 10px;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+.NavBarRight {
+  width: 70%;
+}
+.NavBarRightTopContainer {
+  background-color: #1a1a1a;
+  height: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.NavBarContactInfoContainer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.NavBarAdressContainer {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+.NavBarEmailContainer {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  word-break: break-all;
+}
+.NavBarSocialIcons {
+  margin: 5px;
+  height: 30px;
+  width: 30px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.NavBarRightBottomContainer {
+  display: flex;
+  justify-content: space-between;
+  height: 50%;
+  width: 100%;
+}
+.NavBarTab {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  margin-left: 10px;
+  color: #616161;
+  height: 100%;
+}
+.NavDrawer {
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+@media screen and (max-width: 590px) {
+  .NavDrawer {
+    display: flex;
+  }
+  .NavBarLeftContainer {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .NavBarRightBottomContainer {
+    display: none;
+  }
+  .NavBarContactInfoContainer {
+    display: none;
+  }
+  .NavBarContainer {
+    flex-direction: column;
+  }
+  .NavBarRight {
+    width: 100%;
+  }
+  .NavBarRightTopContainer {
+    display: flex;
+    justify-content: center;
+  }
+}

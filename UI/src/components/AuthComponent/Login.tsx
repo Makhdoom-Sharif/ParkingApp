@@ -74,7 +74,7 @@ function Login({}: Props) {
     try {
       await login(dispatch, data);
       dispatch(ComponentChange("AreaView"));
-      navigate("/Park");
+      navigate("/Home");
     } catch (e) {}
   };
 
@@ -153,8 +153,23 @@ function Login({}: Props) {
           >
             Login
           </LoadingButton>
-          <Grid container sx={{ margin: "25px" }}>
-            <Grid item xs sx={{ display: "flex" }}>
+          <Grid
+            container
+            sx={{
+              margin: "25px",
+              display: "flex",
+              flexDirection: { md: "row", sm: "column", xs: "column" },
+              alignItems: "flex-start",
+            }}
+          >
+            <Grid
+              item
+              xs
+              sx={{
+                display: "flex",
+                marginBottom: { md: 0, sm: "20px", xs: "20px" },
+              }}
+            >
               <Link to="#" style={{ color: "#00000099" }}>
                 Forgot password?
               </Link>

@@ -13,7 +13,7 @@ import {
 } from "../../redux/action";
 import Main from "../Cards/Main";
 import ModalDisplay from "../Modal/Modal";
-import Animation from "../SideAnimation/Animation";
+// import Animation from "../SideAnimation/Animation";
 
 type Props = {};
 type SelectorType = {

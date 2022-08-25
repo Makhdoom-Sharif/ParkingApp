@@ -47,7 +47,7 @@ const ParkPage = (props: Props) => {
           <SlotsView />
         )} */}
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

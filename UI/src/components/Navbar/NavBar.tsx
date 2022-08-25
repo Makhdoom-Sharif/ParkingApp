@@ -3,8 +3,15 @@ import { Box } from "@mui/system";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import MobileDrawer from "./Drawer/Drawer";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+// import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
 import Drawer from "./Drawer/Drawer";
 import AccountMenu from "./DropDown";
+import "./Style.css";
 type Props = {};
 type SelectorType = {
   user: {
@@ -39,8 +46,8 @@ export default function NavBar({}: Props) {
     fontSize: { md: "15px", l: "20px", xl: "20px" },
     cursor: "pointer",
     textDecoration: "underline",
-    webkitTextDecorationColor: "#72BE44",
-    textDecorationColor: "#72BE44",
+    webkitTextDecorationColor: "#4056C8",
+    textDecorationColor: "#4056C8",
     textDecorationThickness: "5px",
     textUnderlineOffset: "5px",
   };
@@ -49,94 +56,96 @@ export default function NavBar({}: Props) {
   const path = location?.pathname;
   // console.log(path);
   return (
-    <Box sx={{ display: "flex", flexDirection: "row" }}>
-      <MobileDrawer />
-      <Box
-        component={"h1"}
-        sx={{
-          display: "flex",
-          flexGrow: "1",
-          padding: "10px",
-          alignContent: "center",
-          alignItems: "center",
-          fontSize: {
-            xs: "1.5rem",
-            sm: "1.5rem",
-            md: "1.75rem",
-            lg: "2rem",
-            xl: "2rem",
-          },
-        }}
-      >
-        <SpaIcon sx={{ color: "#4056C8" }} />
-        <Box component={"span"}>Park</Box>
-        <Box component={"span"} sx={{ color: "#4056C8" }}>
-          ea
+    <Box className="NavBarContainer ">
+      <Box className="NavBarLeftContainer">
+        {loginStatus && <MobileDrawer />}
+        <Box component={"h1"} className="NavBarLogoContainer">
+          <SpaIcon sx={{ color: "#4056C8" }} />
+          <Box component={"span"}>Park</Box>
+          <Box component={"span"} sx={{ color: "#4056C8" }}>
+            ea
+          </Box>
         </Box>
       </Box>
-      <Box
-        sx={{
-          display: "none",
-          flexDirection: "row",
-          alignContent: "center",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "25%",
-          padding: "10px",
-          color: "#616161",
-        }}
-      >
-        {loginStatus
-          ? ["Park", "View Booking", "How It Works"].map((item, index) => {
-              return (
-                <>
-                  <Link
-                    to={
-                      item === "Park"
-                        ? "/Park"
-                        : item === "View Booking"
-                        ? "/ViewBooking"
-                        : "/HowItWorks"
-                    }
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
-                    <Box
-                      component={"p"}
-                      sx={
-                        path == `/${item.replaceAll(" ", "")}`
-                          ? itemSelectedStyle
-                          : itemStyle
-                      }
-                      key={index}
+      <Box className="NavBarRight">
+        <Box className="NavBarRightTopContainer">
+          <Box className="NavBarContactInfoContainer ">
+            <Box className="NavBarAdressContainer">
+              <LocationOnOutlinedIcon sx={{ color: "#4056C8" }} />
+              <Box sx={{ color: "#fff", fontSize: "0.75rem" }}>
+                Computing Yard, Faiyaz Center, Shahrah-e-Faisal, Karachi
+              </Box>
+            </Box>
+            <Box className="NavBarEmailContainer">
+              <EmailOutlinedIcon sx={{ color: "#4056C8" }} />
+              <Box sx={{ color: "#fff", fontSize: "0.75rem" }}>
+                Support@ComputingYards.com
+              </Box>
+            </Box>
+          </Box>
+          <Box sx={{ display: "flex" }}>
+            <Box className="NavBarSocialIcons ">
+              <FacebookIcon />
+            </Box>
+            <Box className="NavBarSocialIcons ">
+              <InstagramIcon />
+            </Box>
+            <Box className="NavBarSocialIcons ">
+              <TwitterIcon />
+            </Box>
+          </Box>
+        </Box>
+        <Box className="NavBarRightBottomContainer">
+          <Box className="NavBarTab">
+            {loginStatus
+              ? ["Home", "Park", "View Booking"].map((item, index) => {
+                  return (
+                    <>
+                      <Link
+                        to={
+                          item === "Park"
+                            ? "/Park"
+                            : item === "View Booking"
+                            ? "/ViewBooking"
+                            : "/Home"
+                        }
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
+                        <Box
+                          component={"p"}
+                          sx={
+                            path == `/${item.replaceAll(" ", "")}`
+                              ? itemSelectedStyle
+                              : itemStyle
+                          }
+                          key={index}
+                        >
+                          {item}
+                        </Box>
+                      </Link>
+                    </>
+                  );
+                })
+              : ["Login", "Register"].map((item, index) => {
+                  return (
+                    <Link
+                      to={item === "Login" ? "/Login" : "/Register"}
+                      style={{ textDecoration: "none", color: "inherit" }}
                     >
-                      {item}
-                    </Box>
-                  </Link>
-                </>
-              );
-            })
-          : ["Login", "Register"].map((item, index) => {
-              return (
-                <Link
-                  to={item === "Login" ? "/Login" : "/Register"}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <Box
-                    // component={'p'}
-                    sx={path == `/${item}` ? itemSelectedStyle : itemStyle}
-                    key={index}
-                  >
-                    {item}
-                  </Box>
-                </Link>
-              );
-            })}
-        {/* < Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                <p>{username}</p> */}
-
-        {/* <Drawer /> */}
+                      <Box
+                        // component={'p'}
+                        sx={path == `/${item}` ? itemSelectedStyle : itemStyle}
+                        key={index}
+                      >
+                        {item}
+                      </Box>
+                    </Link>
+                  );
+                })}
+          </Box>
+          {loginStatus && <AccountMenu />}
+        </Box>
       </Box>
-      {loginStatus && <AccountMenu />}
     </Box>
   );
 }

@@ -1,0 +1,46 @@
+.FooterContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #1a1a1a;
+}
+.FooterContainerTop {
+  display: flex;
+  flex-direction: row;
+  padding: 25px;
+  padding-bottom: 0;
+}
+.FooterContainerTopLeft {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: "center";
+  justify-content: "flex-start";
+}
+.FooterContainerTopLeftHeader {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.FooterContainerTopRight {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-start;
+}
+.FooterContainerTopRightHeader {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}

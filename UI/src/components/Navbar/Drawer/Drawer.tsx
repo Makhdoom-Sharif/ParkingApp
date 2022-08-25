@@ -9,6 +9,7 @@ import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../Footer/Footer";
+import "../Style.css";
 type Anchor = "left";
 export default function MobileDrawer() {
   const [state, setState] = React.useState({
@@ -73,13 +74,15 @@ export default function MobileDrawer() {
 
   return (
     <Box
-      sx={{
-        display: { md: "none", xs: "flex" },
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        alignContent: "center",
-      }}
+      // sx={{
+
+      //   // display: { md: "none", xs: "none" },
+      //   flexDirection: "row",
+      //   alignItems: "center",
+      //   justifyContent: "center",
+      //   alignContent: "center",
+      // }}
+      className="NavDrawer"
     >
       <React.Fragment key={"left"}>
         <Button onClick={toggleDrawer("left", true)}>

@@ -8,8 +8,9 @@ const LoginPage = (props: Props) => {
       <Box
         component={"div"}
         sx={{
+          display: { sm: "flex", xs: "none" },
           height: "100%",
-          display: "flex",
+          // display: "flex",
           justifyContent: "center",
           alignContent: "center",
           alignItems: "center",
@@ -18,11 +19,14 @@ const LoginPage = (props: Props) => {
       >
         <Box
           component={"img"}
-          sx={{ width: "100%", height: "100%" }}
+          sx={{
+            width: "100%",
+            height: "100%",
+          }}
           src="https://i.ibb.co/3cZ8sGR/Login.png"
         ></Box>
       </Box>
-      <Box sx={{ width: "50%", minHeight: "80vh" }}>
+      <Box sx={{ width: { sm: "50%", xs: "100%" }, minHeight: "80vh" }}>
         <AuthNavigation />
       </Box>
     </>
