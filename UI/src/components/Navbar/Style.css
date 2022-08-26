@@ -80,11 +80,16 @@
   height: 100%;
 }
 .NavDrawer {
+  /* width: 40%; */
   display: none;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   align-content: center;
+}
+.css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
+  width: 45%;
+  background-color: #1a1a1a !important;
 }
 @media screen and (max-width: 590px) {
   .NavDrawer {
@@ -109,5 +114,10 @@
   .NavBarRightTopContainer {
     display: flex;
     justify-content: center;
+  }
+}
+@media screen and (max-width: 450px) {
+  .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
+    width: 70%;
   }
 }

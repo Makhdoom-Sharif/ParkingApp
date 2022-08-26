@@ -27,29 +27,17 @@ type SelectorType = {
     ComponentChange: string;
   };
 };
-const ParkPage = (props: Props) => {
+const NewReservation = (props: Props) => {
   const { allAreas, accessToken, ComponentChange } = useSelector(
     (state: SelectorType) => state?.user
   );
   return (
     <>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <Title titleText="New Booking" />
-
-        <ParkingStepper />
-        {/* {ComponentChange === "AreaView" ? (
-          <AreaView />
-        ) : ComponentChange === "PlaceView" ? (
-          <PlaceView />
-        ) : ComponentChange === "DateTimeRangeView" ? (
-          <DateTimeRangeView />
-        ) : (
-          <SlotsView />
-        )} */}
-      </div>
-      {/* <Footer /> */}
+      {/* <div style={{ display: "flex", flexDirection: "column" }}> */}
+      <ParkingStepper />
+      {/* </div> */}
     </>
   );
 };
 
-export default ParkPage;
+export default NewReservation;

@@ -96,114 +96,117 @@ export default function RangePicker() {
   return (
     <div
       className="container"
-      style={{ flexGrow: "1", display: "flex", width: "100%" }}
+      style={{
+        flexGrow: "1",
+        display: "flex",
+        width: "100%",
+        minHeight: "70vh",
+        alignItems: "center",
+        justifyContent: "center",
+        alignContent: "center",
+      }}
     >
       <Box
-        component="main"
+        component={"main"}
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignContent: "center",
-          alignItems: "center",
-          width: "50%",
+          width: "70%",
+          margin: "10px",
+          backgroundColor: "#000",
+          height: "fit-content",
+          borderRadius: "20px",
         }}
       >
         <Box
-          component={"main"}
-          style={{ width: "100%", height: "50%", margin: "10px" }}
+          style={{
+            width: "100%",
+            height: "80%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <Box
+          <div
             style={{
               width: "100%",
-              height: "80%",
+              color: "#fff",
               display: "flex",
-              flexDirection: "column",
+              flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
+              alignContent: "center",
             }}
           >
-            <div
-              style={{
-                width: "100%",
-
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                alignContent: "center",
-              }}
-            >
-              <Box component={"h2"}> Select Date And Time:</Box>
+            <Box component={"h2"}> Select Date And Time:</Box>
+          </div>
+          <Box
+            style={{
+              flexGrow: "1",
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignContent: "center",
+              minWidth: "70%",
+            }}
+          >
+            <div style={{ margin: "10px", width: "100%" }}>
+              <LocalizationProvider
+                dateAdapter={AdapterDateFns}
+                style={{ width: "100%" }}
+              >
+                <DateTimePicker
+                  renderInput={(props) => (
+                    <TextField {...props} style={{ width: "100%" }} />
+                  )}
+                  label="From"
+                  value={value1}
+                  onChange={(newValue: number | null) => {
+                    setValue1(newValue);
+                  }}
+                  minDateTime={Date.now()}
+                />
+              </LocalizationProvider>
             </div>
-            <Box
-              style={{
-                flexGrow: "1",
-                display: "flex",
-                alignItems: "center",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignContent: "center",
-                minWidth: "70%",
-              }}
-            >
-              <div style={{ margin: "10px", width: "100%" }}>
-                <LocalizationProvider
-                  dateAdapter={AdapterDateFns}
-                  style={{ width: "100%" }}
-                >
-                  <DateTimePicker
-                    renderInput={(props) => (
-                      <TextField {...props} style={{ width: "100%" }} />
-                    )}
-                    label="From"
-                    value={value1}
-                    onChange={(newValue: number | null) => {
-                      setValue1(newValue);
-                    }}
-                    minDateTime={Date.now()}
-                  />
-                </LocalizationProvider>
-              </div>
 
-              <div style={{ margin: "10px", width: "100%" }}>
-                <LocalizationProvider
-                  dateAdapter={AdapterDateFns}
-                  style={{ width: "100%" }}
-                >
-                  <DateTimePicker
-                    renderInput={(props) => (
-                      <TextField {...props} style={{ width: "100%" }} />
-                    )}
-                    label="To"
-                    value={value2}
-                    onChange={(newValue: number | null) => {
-                      setValue2(newValue);
-                    }}
-                    minDateTime={Date.now()}
-                  />
-                </LocalizationProvider>
-              </div>
-            </Box>
-            <LoadingButton
-              variant="contained"
-              color="info"
-              onClick={() => handleSubmitRange(value1, value2)}
-              sx={{
-                width: "70%",
-                display: "flex",
-                flexDirection: "row",
-                alignContent: "center",
-                justifyContent: "center",
-                alignItems: "center",
-                margin: "10px",
-              }}
-              disabled={disable}
-            >
-              Next
-            </LoadingButton>
+            <div style={{ margin: "10px", width: "100%" }}>
+              <LocalizationProvider
+                dateAdapter={AdapterDateFns}
+                style={{ width: "100%", color: "#fff" }}
+              >
+                <DateTimePicker
+                  renderInput={(props) => (
+                    <TextField {...props} style={{ width: "100%" }} />
+                  )}
+                  label="To"
+                  value={value2}
+                  onChange={(newValue: number | null) => {
+                    setValue2(newValue);
+                  }}
+                  minDateTime={Date.now()}
+                />
+              </LocalizationProvider>
+            </div>
           </Box>
+          <LoadingButton
+            variant="contained"
+            color="info"
+            onClick={() => handleSubmitRange(value1, value2)}
+            sx={{
+              width: "70%",
+              display: "flex",
+              flexDirection: "row",
+              alignContent: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "10px",
+            }}
+            disabled={disable}
+          >
+            Next
+          </LoadingButton>
         </Box>
+        {/* </Box> */}
       </Box>
       {/* <Animation /> */}
     </div>

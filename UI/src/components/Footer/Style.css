@@ -44,3 +44,35 @@
   align-items: flex-start;
   margin-bottom: 20px;
 }
+
+.FooterButtonContainer {
+  width: 100%;
+  display: flex;
+}
+
+.FooterContactContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 590px) {
+  .FooterContainerTop {
+    flex-direction: column;
+  }
+  .FooterContainerTopLeft {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  .FooterContainerTopRight {
+    width: 100%;
+  }
+  .FooterButtonContainer {
+    justify-content: center;
+  }
+  .FooterContactContainer {
+    font-size: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+}

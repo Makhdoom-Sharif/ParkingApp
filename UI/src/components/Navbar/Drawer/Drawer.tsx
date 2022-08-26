@@ -1,4 +1,5 @@
 import MenuIcon from "@mui/icons-material/Menu";
+import { Divider } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
@@ -7,15 +8,16 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Footer from "../../Footer/Footer";
+import HomeIcon from "@mui/icons-material/Home";
+import NoCrashIcon from "@mui/icons-material/NoCrash";
+import BookOnlineIcon from "@mui/icons-material/BookOnline";
 import "../Style.css";
 type Anchor = "left";
 export default function MobileDrawer() {
+  const { pathname } = useLocation();
   const [state, setState] = React.useState({
-    // top: false,
-    // left: false,
-    // bottom: false,
     left: false,
   });
 
@@ -40,25 +42,53 @@ export default function MobileDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Park", "View Booking", "How It Works"].map((text, index) => (
+        {["Home", "New Reservation", "View Booking"].map((text, index) => (
           <Link
             to={
-              text === "Park"
-                ? "/Park"
+              text === "NewReservation"
+                ? "/NewReservation"
                 : text === "View Booking"
                 ? "/ViewBooking"
-                : "/HowItWorks"
+                : "/Home"
             }
             style={{ textDecoration: "none" }}
           >
             <ListItem key={text} disablePadding>
               <ListItemButton>
+                {text === "Home" ? (
+                  <HomeIcon
+                    sx={{
+                      color: `/${text}` === pathname ? "#fff" : "#ffffff4f",
+                      fontSize: "1.5rem",
+                      textDecoration: "none",
+                      paddingRight: "5px",
+                    }}
+                  />
+                ) : text === "Park" ? (
+                  <NoCrashIcon
+                    sx={{
+                      color: `/${text}` === pathname ? "#fff" : "#ffffff4f",
+                      fontSize: "1.5rem",
+                      textDecoration: "none",
+                      paddingRight: "5px",
+                    }}
+                  />
+                ) : (
+                  <BookOnlineIcon
+                    sx={{
+                      color: `/${text}` === pathname ? "#fff" : "#ffffff4f",
+                      fontSize: "1.5rem",
+                      textDecoration: "none",
+                      paddingRight: "5px",
+                    }}
+                  />
+                )}
                 <ListItemText
                   primary={text}
                   sx={{
                     "& .css-10hburv-MuiTypography-root": {
-                      color: "#fff",
-                      fontSize: "1.5rem",
+                      color: `/${text}` === pathname ? "#fff" : "#ffffff4f",
+                      fontSize: "1.25rem",
                       fontWeight: 400,
                       textDecoration: "none",
                     },
@@ -73,17 +103,7 @@ export default function MobileDrawer() {
   );
 
   return (
-    <Box
-      // sx={{
-
-      //   // display: { md: "none", xs: "none" },
-      //   flexDirection: "row",
-      //   alignItems: "center",
-      //   justifyContent: "center",
-      //   alignContent: "center",
-      // }}
-      className="NavDrawer"
-    >
+    <Box className="NavDrawer">
       <React.Fragment key={"left"}>
         <Button onClick={toggleDrawer("left", true)}>
           <MenuIcon sx={{ fontSize: "2rem" }} />
@@ -98,12 +118,11 @@ export default function MobileDrawer() {
               display: "flex",
               flexDirection: "column",
               height: "100%",
-              background: "#72BE44",
             }}
           >
             <div style={{ flexGrow: "1" }}>{list("left")}</div>
 
-            <Footer />
+            <Footer Drawer={true} />
           </div>
         </Drawer>
       </React.Fragment>

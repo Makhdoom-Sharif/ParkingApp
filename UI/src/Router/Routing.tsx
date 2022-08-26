@@ -6,7 +6,7 @@ import NavBar from "../components/Navbar/NavBar";
 import HowItWorks from "../pages/HowItWorks";
 import AuthPage from "../pages/AuthPage";
 import ParkingSlotsMainPage from "../pages/ParkingSlotsMainPage";
-import ParkPage from "../pages/ParkPage";
+import NewReservation from "../pages/NewReservation";
 // import RegisterPage from "../pages/RegisterPage";
 import ViewBookingPage from "../pages/ViewBookingPage";
 import Home from "../pages/Home";
@@ -49,7 +49,7 @@ const Routing = (props: Props) => {
         {loginStatus ? (
           <Routes>
             <Route path="/Home" element={<Home />}></Route>
-            <Route path="/Park" element={<ParkPage />}></Route>
+            <Route path="/NewReservation" element={<NewReservation />}></Route>
             <Route path="/ViewBooking" element={<ViewBookingPage />}></Route>
             <Route path="/HowItWorks" element={<HowItWorks />}></Route>
             <Route path="*" element={<Navigate replace to="/Home" />} />

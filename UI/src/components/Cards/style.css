@@ -8,5 +8,9 @@
   text-transform: none;
 }
 :hover.cards .Cardsbutton {
+  background-color: #4056c8 !important;
+}
+.css-16vq84g-MuiPaper-root-MuiCard-root {
   background-color: #000 !important;
+  color: #fff !important;
 }

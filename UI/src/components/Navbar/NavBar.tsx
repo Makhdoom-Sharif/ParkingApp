@@ -98,34 +98,36 @@ export default function NavBar({}: Props) {
         <Box className="NavBarRightBottomContainer">
           <Box className="NavBarTab">
             {loginStatus
-              ? ["Home", "Park", "View Booking"].map((item, index) => {
-                  return (
-                    <>
-                      <Link
-                        to={
-                          item === "Park"
-                            ? "/Park"
-                            : item === "View Booking"
-                            ? "/ViewBooking"
-                            : "/Home"
-                        }
-                        style={{ textDecoration: "none", color: "inherit" }}
-                      >
-                        <Box
-                          component={"p"}
-                          sx={
-                            path == `/${item.replaceAll(" ", "")}`
-                              ? itemSelectedStyle
-                              : itemStyle
+              ? ["Home", "New Reservation", "View Booking"].map(
+                  (item, index) => {
+                    return (
+                      <>
+                        <Link
+                          to={
+                            item === "New Reservation"
+                              ? "/NewReservation"
+                              : item === "View Booking"
+                              ? "/ViewBooking"
+                              : "/Home"
                           }
-                          key={index}
+                          style={{ textDecoration: "none", color: "inherit" }}
                         >
-                          {item}
-                        </Box>
-                      </Link>
-                    </>
-                  );
-                })
+                          <Box
+                            component={"p"}
+                            sx={
+                              path == `/${item.replaceAll(" ", "")}`
+                                ? itemSelectedStyle
+                                : itemStyle
+                            }
+                            key={index}
+                          >
+                            {item}
+                          </Box>
+                        </Link>
+                      </>
+                    );
+                  }
+                )
               : ["Login", "Register"].map((item, index) => {
                   return (
                     <Link

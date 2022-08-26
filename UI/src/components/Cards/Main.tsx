@@ -85,23 +85,6 @@ const Main = (props: Props) => {
                     )}
                   </CardContent>
                   <CardActions>
-                    {/*  <LoadingButton
-                      variant="contained"
-                      fullWidth
-                      loadingIndicator={
-                        <CircularProgress style={{ color: "#fff" }} size={16} />
-                      }
-                      className="Cardsbutton"
-                      sx={{
-                        textTransform: "none",
-                      }}
-                      type="submit"
-                      disabled={false}
-                      loading={loading}
-                      onClick={() => handleSelect(item)}
-                    >
-                      Select
-                    </LoadingButton> */}
                     <Button area={area} place={place} item={item} />
                   </CardActions>
                 </Card>
