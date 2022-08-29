@@ -17,7 +17,7 @@ const NoDataFoundView = (props: Props) => {
     >
       <Box
         component={"img"}
-        sx={{ width: "40%", height: "60%" }}
+        // sx={{ width: "40%", height: "60%" }}
         src="https://i.ibb.co/LhCWSpc/notFound.png"
       ></Box>
       <Box

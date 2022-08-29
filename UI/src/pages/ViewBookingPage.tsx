@@ -19,7 +19,7 @@ const ViewBookingPage = (props: Props) => {
         {/* <Title titleText="Your Bookings" /> */}
         <TabNavigation />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

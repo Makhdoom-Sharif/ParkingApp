@@ -97,53 +97,35 @@ export default function NavBar({}: Props) {
         </Box>
         <Box className="NavBarRightBottomContainer">
           <Box className="NavBarTab">
-            {loginStatus
-              ? ["Home", "New Reservation", "View Booking"].map(
-                  (item, index) => {
-                    return (
-                      <>
-                        <Link
-                          to={
-                            item === "New Reservation"
-                              ? "/NewReservation"
-                              : item === "View Booking"
-                              ? "/ViewBooking"
-                              : "/Home"
-                          }
-                          style={{ textDecoration: "none", color: "inherit" }}
-                        >
-                          <Box
-                            component={"p"}
-                            sx={
-                              path == `/${item.replaceAll(" ", "")}`
-                                ? itemSelectedStyle
-                                : itemStyle
-                            }
-                            key={index}
-                          >
-                            {item}
-                          </Box>
-                        </Link>
-                      </>
-                    );
-                  }
-                )
-              : ["Login", "Register"].map((item, index) => {
-                  return (
+            {loginStatus &&
+              ["Home", "New Reservation", "View Booking"].map((item, index) => {
+                return (
+                  <>
                     <Link
-                      to={item === "Login" ? "/Login" : "/Register"}
+                      to={
+                        item === "New Reservation"
+                          ? "/NewReservation"
+                          : item === "View Booking"
+                          ? "/ViewBooking"
+                          : "/Home"
+                      }
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
                       <Box
-                        // component={'p'}
-                        sx={path == `/${item}` ? itemSelectedStyle : itemStyle}
+                        component={"p"}
+                        sx={
+                          path == `/${item.replaceAll(" ", "")}`
+                            ? itemSelectedStyle
+                            : itemStyle
+                        }
                         key={index}
                       >
                         {item}
                       </Box>
                     </Link>
-                  );
-                })}
+                  </>
+                );
+              })}
           </Box>
           {loginStatus && <AccountMenu />}
         </Box>

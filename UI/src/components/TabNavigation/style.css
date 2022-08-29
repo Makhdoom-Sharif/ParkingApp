@@ -1,0 +1,15 @@
+.BookingContainer {
+  width: 100%;
+
+  background-image: url("https://i.ibb.co/mRSWWXX/istockphoto-621360614-612x612.jpg");
+  /* width: 100%; */
+  min-height: 85vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+.BookingConatinerFade {
+  background-color: #282c34ad;
+  min-height: 85vh;
+}

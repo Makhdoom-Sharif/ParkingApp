@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DeleteUserBooking } from "../../apiCalls";
 import SnackBar from "../SnackBar/SnackBar";
-
+import "./style.css";
 type Props = {
   Data?: {
     _id?: string;
@@ -77,7 +77,7 @@ const DisplayBookings = (props: Props) => {
     <Box
       sx={{
         p: "20px",
-        border: "1px solid #dbdbdb",
+        // border: "1px solid #dbdbdb",
       }}
     >
       <SnackBar
@@ -88,35 +88,11 @@ const DisplayBookings = (props: Props) => {
       />
       {Data &&
         Data.map((item) => (
-          <Box
-            component={"div"}
-            sx={{
-              display: "flex",
-              width: "100%",
-              backgroundColor: "#fff",
-              boxShadow: 2,
-              mb: "20px",
-            }}
-          >
-            <Box
-              component={"div"}
-              sx={{
-                width: "20%",
-                display: "flex",
-                padding: "5px",
-                color: "#616161",
-                fontWeight: "600",
-              }}
-            >
+          <Box component={"div"} className="ViewBookingContainer">
+            <Box component={"div"} className="BookingAreaPlaceSection ">
               {`${item.placeName},${item.AreaName}`}:
             </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: "80%",
-              }}
-            >
+            <Box className="BookingDetailsSection">
               <Box
                 component={"div"}
                 sx={{

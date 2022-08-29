@@ -1,6 +1,7 @@
 import { LoadingButton } from "@mui/lab";
 import { Box, Button, CircularProgress } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 import "./style.css";
 type Props = {};
 
@@ -21,16 +22,18 @@ const Main = (props: Props) => {
               </div>
               <div>Cancellations are free</div>
             </Box>
-            <LoadingButton
-              variant="contained"
-              sx={{ backgroundColor: "#4056C8 !important" }}
-              color="secondary"
-              loadingIndicator={
-                <CircularProgress style={{ color: "#fff" }} size={16} />
-              }
-            >
-              Show Parking Spaces
-            </LoadingButton>
+            <Link to={"/NewReservation"} style={{ textDecoration: "none" }}>
+              <LoadingButton
+                variant="contained"
+                sx={{ backgroundColor: "#4056C8 !important" }}
+                color="secondary"
+                loadingIndicator={
+                  <CircularProgress style={{ color: "#fff" }} size={16} />
+                }
+              >
+                Show Parking Spaces
+              </LoadingButton>
+            </Link>
           </Box>
         </Box>
         {/* Main */}

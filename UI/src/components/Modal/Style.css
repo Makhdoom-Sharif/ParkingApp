@@ -1,0 +1,119 @@
+.ModalContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  width: 50%;
+}
+.ModalCloseIcon {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  align-content: center;
+  margin-right: -20px !important;
+}
+.ModalHeading {
+  color: #000;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-decoration: underline;
+  font-weight: 600;
+  font-size: 1.75rem;
+  text-decoration-color: #4056c8;
+  text-decoration-thickness: 5px;
+}
+.ModalRowContainer {
+  margin-top: 2;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: row;
+}
+.ModalRowHeading {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #000;
+  width: 50%;
+}
+.ModalRowData {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #616161;
+  word-break: break-all;
+}
+.ModalTimeRangeContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+.ModalTimeRangeDuration {
+  display: flex;
+  margin-top: 15px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin-bottom: 15px;
+}
+.ModalDialogAction {
+  display: flex;
+  flex-direction: row;
+  justify-content: center !important;
+  align-items: center;
+  align-content: center;
+  padding: 0;
+}
+.ModalButtonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  width: 60%;
+  height: 50px;
+}
+.ModalButton {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  /* justify-content: flex-end; */
+  cursor: pointer;
+}
+@media screen and (max-width: 600px) {
+  /* .ModalContainer {
+    width: 95% !important;
+  } */
+  .ModalHeading {
+    font-size: 1.25rem;
+  }
+  .ModalRowHeading {
+    font-size: 0.75rem;
+  }
+  .ModalRowData {
+    font-size: 0.75rem;
+  }
+  .ModalTimeRangeContainer {
+    flex-direction: column;
+    font-size: 0.75rem;
+  }
+  .ModalTimeRangeDuration {
+    font-size: 0.75rem;
+    margin-top: 0;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .ModalContainer {
+    width: 80%;
+  }
+}

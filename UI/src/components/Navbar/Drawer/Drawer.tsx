@@ -45,7 +45,7 @@ export default function MobileDrawer() {
         {["Home", "New Reservation", "View Booking"].map((text, index) => (
           <Link
             to={
-              text === "NewReservation"
+              text === "New Reservation"
                 ? "/NewReservation"
                 : text === "View Booking"
                 ? "/ViewBooking"
@@ -58,16 +58,22 @@ export default function MobileDrawer() {
                 {text === "Home" ? (
                   <HomeIcon
                     sx={{
-                      color: `/${text}` === pathname ? "#fff" : "#ffffff4f",
+                      color:
+                        `/${text}`.replace(/\s+/g, "") === pathname
+                          ? "#fff"
+                          : "#ffffff4f",
                       fontSize: "1.5rem",
                       textDecoration: "none",
                       paddingRight: "5px",
                     }}
                   />
-                ) : text === "Park" ? (
+                ) : text === "New Reservation" ? (
                   <NoCrashIcon
                     sx={{
-                      color: `/${text}` === pathname ? "#fff" : "#ffffff4f",
+                      color:
+                        `/${text}`.replace(/\s+/g, "") === pathname
+                          ? "#fff"
+                          : "#ffffff4f",
                       fontSize: "1.5rem",
                       textDecoration: "none",
                       paddingRight: "5px",
@@ -76,7 +82,10 @@ export default function MobileDrawer() {
                 ) : (
                   <BookOnlineIcon
                     sx={{
-                      color: `/${text}` === pathname ? "#fff" : "#ffffff4f",
+                      color:
+                        `/${text}`.replace(/\s+/g, "") === pathname
+                          ? "#fff"
+                          : "#ffffff4f",
                       fontSize: "1.5rem",
                       textDecoration: "none",
                       paddingRight: "5px",
@@ -87,7 +96,10 @@ export default function MobileDrawer() {
                   primary={text}
                   sx={{
                     "& .css-10hburv-MuiTypography-root": {
-                      color: `/${text}` === pathname ? "#fff" : "#ffffff4f",
+                      color:
+                        `/${text}`.replace(/\s+/g, "") === pathname
+                          ? "#fff"
+                          : "#ffffff4f",
                       fontSize: "1.25rem",
                       fontWeight: 400,
                       textDecoration: "none",

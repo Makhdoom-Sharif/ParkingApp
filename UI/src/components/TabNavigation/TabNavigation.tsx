@@ -8,7 +8,7 @@ import PendingBooking from "../BookingView/PendingBooking";
 import History from "../BookingView/History";
 import { GetUserBookings } from "../../apiCalls";
 import { useDispatch, useSelector } from "react-redux";
-
+import "./style.css";
 type SelectorType = {
   user: {
     accessToken: string;
@@ -56,58 +56,61 @@ export default function TabNavigation() {
     GetBookingData();
   }, [value]);
   return (
-    <Box sx={{ width: "100%", typography: "body1" }}>
-      <TabContext value={value}>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            ".css-1yssfoi-MuiTabs-root": {
-              alignItems: "center",
-            },
-          }}
-        >
-          <TabList
-            onChange={handleChange}
-            aria-label="lab API tabs example"
+    <Box className="BookingContainer" sx={{ typography: "body1" }}>
+      <Box className="BookingConatinerFade">
+        <TabContext value={value}>
+          <Box
             sx={{
-              ".css-1gt4i3f-MuiButtonBase-root-MuiTab-root.Mui-selected": {
-                color: "#fff",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              ".css-1yssfoi-MuiTabs-root": {
+                alignItems: "center",
               },
-              ".css-a4gntu-MuiTabs-indicator": {
-                color: "#000",
-              },
-              ".css-1gt4i3f-MuiButtonBase-root-MuiTab-root": {
-                fontSize: "40px",
-                textTransform: "none",
-              },
-              backgroundColor: "#72BE44",
-              width: "100%",
-              height: "60px",
             }}
           >
-            <Tab
-              label="Pending Booking"
-              value="1"
-              sx={{ width: "50%", minWidth: "50%", maxWidth: "50%" }}
-            />
-            <Tab
-              label="History"
-              value="2"
-              sx={{ width: "50%", minWidth: "50%", maxWidth: "50%" }}
-            />
-          </TabList>
-        </Box>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <TabPanel value="1" sx={{ width: "70%", minHeight: "70vh" }}>
-            <PendingBooking />
-          </TabPanel>
-          <TabPanel value="2" sx={{ width: "70%", minHeight: "70vh" }}>
-            <History />
-          </TabPanel>
-        </Box>
-      </TabContext>
+            <TabList
+              onChange={handleChange}
+              aria-label="lab API tabs example"
+              sx={{
+                ".css-1gt4i3f-MuiButtonBase-root-MuiTab-root.Mui-selected": {
+                  color: "#fff",
+                },
+                ".css-a4gntu-MuiTabs-indicator": {
+                  backgroundColor: "#fff",
+                },
+                ".css-1gt4i3f-MuiButtonBase-root-MuiTab-root": {
+                  fontSize: "40px",
+                  textTransform: "none",
+                  color: "#ffffff4f",
+                },
+                backgroundColor: "#1A1A1A",
+                width: "100%",
+                height: "60px",
+              }}
+            >
+              <Tab
+                label="Pending Booking"
+                value="1"
+                sx={{ width: "50%", minWidth: "50%", maxWidth: "50%" }}
+              />
+              <Tab
+                label="History"
+                value="2"
+                sx={{ width: "50%", minWidth: "50%", maxWidth: "50%" }}
+              />
+            </TabList>
+          </Box>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <TabPanel value="1" sx={{ width: "70%", minHeight: "70vh" }}>
+              <PendingBooking />
+            </TabPanel>
+            <TabPanel value="2" sx={{ width: "70%", minHeight: "70vh" }}>
+              <History />
+            </TabPanel>
+          </Box>
+        </TabContext>
+      </Box>
     </Box>
   );
 }

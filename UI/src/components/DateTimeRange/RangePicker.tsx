@@ -140,17 +140,28 @@ export default function RangePicker() {
             <Box component={"h2"}> Select Date And Time:</Box>
           </div>
           <Box
-            style={{
+            sx={{
+              paddingBottom: "40px",
+
               flexGrow: "1",
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
               justifyContent: "center",
               alignContent: "center",
-              minWidth: "70%",
+              minWidth: "95%",
+              ".css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": {
+                background: "#fff",
+              },
+              ".css-gqf166-MuiInputBase-root-MuiOutlinedInput-root": {
+                background: "#fff",
+              },
+              ".css-1u3bzj6-MuiFormControl-root-MuiTextField-root": {
+                background: "#fff",
+              },
             }}
           >
-            <div style={{ margin: "10px", width: "100%" }}>
+            <div style={{ margin: "10px", width: "90%" }}>
               <LocalizationProvider
                 dateAdapter={AdapterDateFns}
                 style={{ width: "100%" }}
@@ -169,7 +180,7 @@ export default function RangePicker() {
               </LocalizationProvider>
             </div>
 
-            <div style={{ margin: "10px", width: "100%" }}>
+            <div style={{ margin: "10px", width: "90%" }}>
               <LocalizationProvider
                 dateAdapter={AdapterDateFns}
                 style={{ width: "100%", color: "#fff" }}
@@ -187,24 +198,26 @@ export default function RangePicker() {
                 />
               </LocalizationProvider>
             </div>
+            <LoadingButton
+              variant="contained"
+              color="secondary"
+              onClick={() => handleSubmitRange(value1, value2)}
+              className="Authbutton"
+              type="submit"
+              sx={{
+                width: "90%",
+                display: "flex",
+                flexDirection: "row",
+                alignContent: "center",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "10px",
+              }}
+              disabled={disable}
+            >
+              Next
+            </LoadingButton>
           </Box>
-          <LoadingButton
-            variant="contained"
-            color="info"
-            onClick={() => handleSubmitRange(value1, value2)}
-            sx={{
-              width: "70%",
-              display: "flex",
-              flexDirection: "row",
-              alignContent: "center",
-              justifyContent: "center",
-              alignItems: "center",
-              margin: "10px",
-            }}
-            disabled={disable}
-          >
-            Next
-          </LoadingButton>
         </Box>
         {/* </Box> */}
       </Box>

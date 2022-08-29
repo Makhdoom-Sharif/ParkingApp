@@ -9,8 +9,10 @@ import { PostNewBooking } from "../../apiCalls";
 import { ChangeStep, ConfirmationModal } from "../../redux/action";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import "./Style.css";
+
 const style = {
-  position: "absolute" as "absolute",
+  position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -90,6 +92,26 @@ export default function ModalDisplay() {
     EndDate.getMinutes() +
     ":" +
     EndDate.getSeconds();
+
+  function convertToDays(milliSeconds: number) {
+    let days = Math.floor(milliSeconds / (86400 * 1000));
+    milliSeconds -= days * (86400 * 1000);
+    let hours = Math.floor(milliSeconds / (60 * 60 * 1000));
+    milliSeconds -= hours * (60 * 60 * 1000);
+    let minutes = Math.floor(milliSeconds / (60 * 1000));
+    return {
+      days,
+      hours,
+      minutes,
+    };
+  }
+
+  const Duration = convertToDays(
+    BookingData && BookingData.end && BookingData?.start
+      ? BookingData.end - BookingData.start
+      : 0
+  );
+
   return (
     <div>
       <Modal
@@ -104,175 +126,54 @@ export default function ModalDisplay() {
         }}
       >
         <Fade in={ModalOpen}>
-          <Box sx={style}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                alignContent: "center",
-                mr: "-20px !important",
-              }}
-            >
+          <Box className="ModalContainer">
+            <Box className="ModalCloseIcon ">
               <IconButton sx={{ color: "#FF0000" }} onClick={handleClose}>
                 <CancelIcon sx={{ fontSize: "2rem" }} />
               </IconButton>
             </Box>
-            <Box
-              component={"div"}
-              sx={{
-                color: "#000",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                textDecoration: "underline",
-                fontWeight: "600",
-                fontSize: "1.75rem",
-                textDecorationColor: "#72BE49",
-                textDecorationThickness: "5px",
-              }}
-            >
+            <Box component={"div"} className="ModalHeading">
               BOOKING CONFIRMATION
             </Box>
             <br />
             <Divider />
-            <Box
-              component={"div"}
-              sx={{
-                mt: 2,
-                display: "flex",
-                alignItems: "center",
-                alignContent: "center",
-                flexDirection: "row",
-              }}
-            >
-              <Box
-                component={"div"}
-                sx={{
-                  fontSize: "1.25rem",
-                  fontWeight: "600",
-                  color: "#000",
-                  width: "50%",
-                }}
-              >
+            <Box component={"div"} className="ModalRowContainer">
+              <Box component={"div"} className="ModalRowHeading">
                 {" "}
                 Area:
               </Box>
-              <Box
-                component={"div"}
-                sx={{
-                  fontSize: "1.25rem",
-                  fontWeight: "600",
-                  color: "#616161",
-                  wordBreak: "break-all",
-                }}
-              >
+              <Box component={"div"} className="ModalRowData">
                 {BookingData?.AreaName}
               </Box>
             </Box>
             <Divider />
-            <Box
-              component={"div"}
-              sx={{
-                mt: 2,
-                display: "flex",
-                alignItems: "center",
-                alignContent: "center",
-                flexDirection: "row",
-              }}
-            >
-              <Box
-                component={"div"}
-                sx={{
-                  fontSize: "1.25rem",
-                  fontWeight: "600",
-                  color: "#000",
-                  width: "50%",
-                }}
-              >
+            <Box component={"div"} className="ModalRowContainer">
+              <Box component={"div"} className="ModalRowHeading">
                 {" "}
                 Place Name:
               </Box>
-              <Box
-                component={"div"}
-                sx={{
-                  // pl: "5%",
-                  fontSize: "1.25rem",
-                  fontWeight: "600",
-                  color: "#616161",
-                  wordBreak: "break-all",
-                }}
-              >
+              <Box component={"div"} className="ModalRowData">
                 {BookingData?.placeName}
               </Box>
             </Box>
             <Divider />
-            <Box
-              component={"div"}
-              sx={{
-                mt: 2,
-                display: "flex",
-                alignItems: "center",
-                alignContent: "center",
-                flexDirection: "row",
-              }}
-            >
-              <Box
-                component={"div"}
-                sx={{
-                  fontSize: "1.25rem",
-                  fontWeight: "600",
-                  color: "#000",
-                  width: "50%",
-                }}
-              >
+            <Box component={"div"} className="ModalRowContainer">
+              <Box component={"div"} className="ModalRowHeading">
                 {" "}
                 Slot No:
               </Box>
-              <Box
-                component={"div"}
-                sx={{
-                  fontSize: "1.25rem",
-                  fontWeight: "600",
-                  color: "#616161",
-                  wordBreak: "break-all",
-                }}
-              >
+              <Box component={"div"} className="ModalRowData">
                 {BookingData?.slotNo}
               </Box>
             </Box>
             <Divider />
-            <Box
-              component={"div"}
-              sx={{
-                mt: 2,
-                display: "flex",
-                alignItems: "center",
-                alignContent: "center",
-                flexDirection: "row",
-              }}
-            >
-              <Box
-                component={"div"}
-                sx={{ fontSize: "1.25rem", fontWeight: "600", color: "#000" }}
-              >
+            <Box component={"div"} className="ModalRowContainer">
+              <Box component={"div"} className="ModalRowHeading">
                 {" "}
                 Date And Time Range:
               </Box>
             </Box>
-            <Box
-              component={"div"}
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignContent: "center",
-                alignItems: "center",
-                mt: 2,
-              }}
-            >
+            <Box component={"div"} className="ModalTimeRangeContainer">
               <Box
                 component={"div"}
                 id="transition-modal-description"
@@ -297,60 +198,26 @@ export default function ModalDisplay() {
             <Box
               component={"div"}
               id="transition-modal-description"
-              sx={{
-                display: "flex",
-                mt: 2,
-                justifyContent: "center",
-                alignItems: "center",
-                alignContent: "center",
-                mb: 2,
-              }}
+              className="ModalTimeRangeDuration"
             >
               <Box component={"div"} sx={{ display: "flex", color: "#000" }}>
                 Duration :
               </Box>
-              <Box sx={{ paddingLeft: "5px", color: "#616161" }}>
-                {BookingData &&
-                  BookingData.end &&
-                  BookingData?.start &&
-                  BookingData?.end - BookingData?.start}
-              </Box>
+              <Box
+                sx={{ paddingLeft: "5px", color: "#616161" }}
+              >{` ${Duration.days} days ${Duration.hours} hours and ${Duration.minutes} minutes`}</Box>
             </Box>
             <Divider />
-            <DialogActions
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                alignContent: "center",
-                p: 0,
-              }}
-            >
-              <Box
-                component={"div"}
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  alignContent: "center",
-                  width: "60%",
-                  height: "50px",
-                  // p: "0px !important",
-                }}
-              >
+            <DialogActions className="ModalDialogAction">
+              <Box component={"div"} className="ModalButtonContainer">
                 <Box
                   component={"span"}
                   sx={{
                     borderRight: "1px solid rgba(0, 0, 0, 0.12)",
-                    width: "50%",
-                    height: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    color: "#72BE44",
-                    cursor: "pointer",
+                    color: "#4056C8",
+                    justifyContent: "flex-start",
                   }}
+                  className="ModalButton"
                   onClick={handleSubmit}
                 >
                   Confrim
@@ -358,14 +225,10 @@ export default function ModalDisplay() {
                 <Box
                   component={"span"}
                   sx={{
-                    width: "50%",
-                    height: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "flex-end",
                     color: "#FF0000",
-                    cursor: "pointer",
+                    justifyContent: "flex-end",
                   }}
+                  className="ModalButton"
                   onClick={handleClose}
                 >
                   Cancel
