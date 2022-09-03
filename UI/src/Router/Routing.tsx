@@ -10,6 +10,8 @@ import NewReservation from "../pages/NewReservation";
 // import RegisterPage from "../pages/RegisterPage";
 import ViewBookingPage from "../pages/ViewBookingPage";
 import Home from "../pages/Home";
+import AllUsersPage from "../pages/AllUsersPage";
+import AllBookingsPage from "../pages/AllBookingsPage";
 
 type Props = {};
 type SelectorType = {
@@ -27,7 +29,9 @@ type SelectorType = {
 };
 
 const Routing = (props: Props) => {
-  const { loginStatus } = useSelector((state: SelectorType) => state?.user);
+  const { loginStatus, isAdmin } = useSelector(
+    (state: SelectorType) => state?.user
+  );
   return (
     <div
       style={{
@@ -41,19 +45,30 @@ const Routing = (props: Props) => {
         sx={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: isAdmin ? "flex-start" : "center",
           alignContent: "center",
           flexGrow: 1,
         }}
       >
         {loginStatus ? (
-          <Routes>
-            <Route path="/Home" element={<Home />}></Route>
-            <Route path="/NewReservation" element={<NewReservation />}></Route>
-            <Route path="/ViewBooking" element={<ViewBookingPage />}></Route>
-            <Route path="/HowItWorks" element={<HowItWorks />}></Route>
-            <Route path="*" element={<Navigate replace to="/Home" />} />
-          </Routes>
+          isAdmin ? (
+            <Routes>
+              <Route path="/AllUsers" element={<AllUsersPage />}></Route>
+              <Route path="/AllBookings" element={<AllBookingsPage />}></Route>
+              <Route path="*" element={<Navigate replace to="/AllUsers" />} />
+            </Routes>
+          ) : (
+            <Routes>
+              <Route path="/Home" element={<Home />}></Route>
+              <Route
+                path="/NewReservation"
+                element={<NewReservation />}
+              ></Route>
+              <Route path="/ViewBooking" element={<ViewBookingPage />}></Route>
+              <Route path="/HowItWorks" element={<HowItWorks />}></Route>
+              <Route path="*" element={<Navigate replace to="/Home" />} />
+            </Routes>
+          )
         ) : (
           <Routes>
             <Route path="/Login" element={<AuthPage />}></Route>

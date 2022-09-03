@@ -27,7 +27,8 @@ export const login = async (dispatch, Data) => {
   try {
     const { data } = await publicRequest.post("/auth/login", Data);
     dispatch(loginSuccess(data));
-    GetAllAreas(dispatch, data.accessToken);
+    // console.log(data);
+    GetAllAreas(dispatch, data.accessToken, data._id);
   } catch (e) {
     dispatch(loginFail(e.response.data));
   }
@@ -48,7 +49,7 @@ export const register = async (dispatch, Data) => {
   }
 };
 
-export const GetAllPlaces = async (dispatch, AccessTOKEN, item) => {
+export const GetAllPlaces = async (dispatch, AccessTOKEN, item, uid) => {
   const { _id, AreaName } = item;
   dispatch(GetAllPlacesStart());
   try {
@@ -56,7 +57,7 @@ export const GetAllPlaces = async (dispatch, AccessTOKEN, item) => {
       baseURL: BASE_URL,
       headers: { token: `Bearer ${AccessTOKEN}` },
     });
-    const data = await places.get(`/places/?AreaID=${_id}`);
+    const data = await places.get(`/places/?AreaID=${_id}&id=${uid}`);
     dispatch(GetAllPlacesSuccess(data.data));
     dispatch(NewBookingData({ AreaName: AreaName }));
     dispatch(ChangeStep(1));
@@ -65,14 +66,14 @@ export const GetAllPlaces = async (dispatch, AccessTOKEN, item) => {
   }
 };
 
-export const GetAllAreas = async (dispatch, AccessTOKEN) => {
+export const GetAllAreas = async (dispatch, AccessTOKEN, uid) => {
   dispatch(GetAllAreasInit());
   try {
     const Areas = await axios.create({
       baseURL: BASE_URL,
       headers: { token: `Bearer ${AccessTOKEN}` },
     });
-    const data = await Areas.get("/area/findAll");
+    const data = await Areas.get(`/area/findAll?id=${uid}`);
     console.log(data.data);
     dispatch(GetAllAreasSuccess(data.data));
   } catch (err) {
@@ -94,7 +95,7 @@ export const GetAllAvailableSlots = async (
       headers: { token: `Bearer ${AccessTOKEN}` },
     });
     const data = await Slots.get(
-      `/newbooking/?parkingPlaceID=${_id}&from=${start}&to=${end}&slots=${totalSlots}`
+      `/newbooking/?parkingPlaceID=${_id}&from=${start}&to=${end}&slots=${totalSlots}&id=${uid}`
     );
     const item = {
       ...{ Data: Data },
@@ -118,12 +119,13 @@ export const PostNewBooking = async (Data) => {
     end,
     slotNo,
     slotID,
+    username,
   } = Data;
   const PostBooking = await axios.create({
     baseURL: BASE_URL,
     headers: { token: `Bearer ${accessToken}` },
   });
-  return await PostBooking.post("/newbooking/new", {
+  return await PostBooking.post(`/newbooking/new?id=${uid}`, {
     AreaName,
     placeName,
     parkingPlaceID,
@@ -132,6 +134,7 @@ export const PostNewBooking = async (Data) => {
     to: end,
     slotID,
     slotNo,
+    username,
   });
 };
 export const GetUserBookings = async (Data) => {
@@ -143,7 +146,7 @@ export const GetUserBookings = async (Data) => {
     });
 
     const data = await GetBookings.get(
-      `/newbooking/find?qCategory=${qCategory}&userID=${userID}`
+      `/newbooking/find?qCategory=${qCategory}&userID=${userID}&id=${userID}`
     );
     console.log(data.data);
     qCategory === "pending"
@@ -161,6 +164,26 @@ export const DeleteUserBooking = async (Data) => {
     headers: { token: `Bearer ${AccessTOKEN}` },
   });
   return await DeleteBooking.delete(
-    `/newbooking/?BookingID=${_id}&userID=${uid}`
+    `/newbooking/?BookingID=${_id}&userID=${uid}&id=${uid}`
   );
+};
+
+export const GetAllUser = async (Data) => {
+  // console.log(Data);
+  const { AccessTOKEN } = Data;
+  const GetUsers = await axios.create({
+    baseURL: BASE_URL,
+    headers: { token: `Bearer ${Data}` },
+  });
+  return await GetUsers.get(`/user/`);
+  // console.log(GetUsers);
+};
+
+export const GetAllBookings = async (Data) => {
+  console.log(Data);
+  const GetBookings = await axios.create({
+    baseURL: BASE_URL,
+    headers: { token: `Bearer ${Data}` },
+  });
+  return await GetBookings.get(`/newbooking/findAll`);
 };

@@ -100,6 +100,15 @@ export const GetAllHistory = (Data) => ({
   payload: Data,
 });
 
+export const GetAllUserSucces = (Data) => ({
+  type: type.GET_ALL_USERSUCCESS,
+  payload: Data,
+});
+
+export const GetAllBookingsUser = (Data) => ({
+  type: type.GET_ALL_BOOKINGS_USER,
+  payload: Data,
+});
 // export const DeleteBookingSuccess = (Data) => ({
 //   type: type.DELETE_BOOKING_SUCCESS,
 //   payload:Data

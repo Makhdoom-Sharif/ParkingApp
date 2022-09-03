@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema(
     slotNo: { type: String, unique: true },
     areaID: { type: String },
     slotID: { type: String, require: true },
+    username: { type: String, require: true },
   },
   { timestamps: true }
 );

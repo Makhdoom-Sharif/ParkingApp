@@ -39,10 +39,11 @@ type SelectorType = {
     };
     accessToken: string;
     uid: string;
+    username: string;
   };
 };
 export default function ModalDisplay() {
-  const { BookingData, ModalOpen, accessToken, uid } = useSelector(
+  const { BookingData, ModalOpen, accessToken, uid, username } = useSelector(
     (state: SelectorType) => state?.user
   );
   const navigate = useNavigate();
@@ -51,15 +52,17 @@ export default function ModalDisplay() {
   const handleSubmit = async () => {
     // console.log("first");
     try {
-      await PostNewBooking({ ...BookingData, uid, accessToken }).then(() => {
-        swal("Your booking has been regeistered!", {
-          icon: "success",
-        }).then(() => {
-          navigate("/ViewBooking");
-          dispatch(ConfirmationModal(false));
-          dispatch(ChangeStep(0));
-        });
-      });
+      await PostNewBooking({ ...BookingData, uid, accessToken, username }).then(
+        () => {
+          swal("Your booking has been regeistered!", {
+            icon: "success",
+          }).then(() => {
+            navigate("/ViewBooking");
+            dispatch(ConfirmationModal(false));
+            dispatch(ChangeStep(0));
+          });
+        }
+      );
     } catch (e) {
       console.log(e);
     }

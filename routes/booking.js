@@ -64,6 +64,7 @@ router.post("/new", verifyTokenAndAuthorization, async (req, res) => {
     to: req.body.to,
     slotNo: req.body.slotNo,
     slotID: req.body.slotID,
+    username: req.body.username,
   });
   try {
     const postNewBooking = await newBooking.save();

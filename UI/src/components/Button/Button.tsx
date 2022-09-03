@@ -30,19 +30,20 @@ type SelectorType = {
     BookingData: {
       AreaName: String;
     }[];
+    uid: string;
   };
 };
 const Button = (props: Props) => {
   const dispatch = useDispatch();
   const { item, area, place } = props;
   const [load, setLoad] = useState(false);
-  const { accessToken, loading, BookingData } = useSelector(
+  const { accessToken, loading, BookingData, uid } = useSelector(
     (state: SelectorType) => state?.user
   );
   const handleAreaSelect = async () => {
     try {
       setLoad(true);
-      await GetAllPlaces(dispatch, accessToken, item);
+      await GetAllPlaces(dispatch, accessToken, item, uid);
       setLoad(false);
     } catch (e) {
       setLoad(false);

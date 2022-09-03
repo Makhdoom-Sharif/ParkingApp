@@ -32,7 +32,7 @@ type locationProps = {
 };
 
 export default function NavBar({}: Props) {
-  const { loginStatus, username } = useSelector(
+  const { loginStatus, username, isAdmin } = useSelector(
     (state: SelectorType) => state?.user
   );
 
@@ -97,35 +97,69 @@ export default function NavBar({}: Props) {
         </Box>
         <Box className="NavBarRightBottomContainer">
           <Box className="NavBarTab">
-            {loginStatus &&
-              ["Home", "New Reservation", "View Booking"].map((item, index) => {
-                return (
-                  <>
-                    <Link
-                      to={
-                        item === "New Reservation"
-                          ? "/NewReservation"
-                          : item === "View Booking"
-                          ? "/ViewBooking"
-                          : "/Home"
-                      }
-                      style={{ textDecoration: "none", color: "inherit" }}
-                    >
-                      <Box
-                        component={"p"}
-                        sx={
-                          path == `/${item.replaceAll(" ", "")}`
-                            ? itemSelectedStyle
-                            : itemStyle
-                        }
-                        key={index}
-                      >
-                        {item}
-                      </Box>
-                    </Link>
-                  </>
-                );
-              })}
+            {loginStatus
+              ? isAdmin
+                ? ["All Users", "All Bookings", "All Parking Lots"].map(
+                    (item, index) => {
+                      return (
+                        <>
+                          <Link
+                            to={
+                              item === "All Users"
+                                ? "/AllUsers"
+                                : item === "All Bookings"
+                                ? "/AllBookings"
+                                : "/Home"
+                            }
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <Box
+                              component={"p"}
+                              sx={
+                                path == `/${item.replaceAll(" ", "")}`
+                                  ? itemSelectedStyle
+                                  : itemStyle
+                              }
+                              key={index}
+                            >
+                              {item}
+                            </Box>
+                          </Link>
+                        </>
+                      );
+                    }
+                  )
+                : ["Home", "New Reservation", "View Booking"].map(
+                    (item, index) => {
+                      return (
+                        <>
+                          <Link
+                            to={
+                              item === "New Reservation"
+                                ? "/NewReservation"
+                                : item === "View Booking"
+                                ? "/ViewBooking"
+                                : "/Home"
+                            }
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <Box
+                              component={"p"}
+                              sx={
+                                path == `/${item.replaceAll(" ", "")}`
+                                  ? itemSelectedStyle
+                                  : itemStyle
+                              }
+                              key={index}
+                            >
+                              {item}
+                            </Box>
+                          </Link>
+                        </>
+                      );
+                    }
+                  )
+              : null}
           </Box>
           {loginStatus && <AccountMenu />}
         </Box>

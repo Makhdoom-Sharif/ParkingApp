@@ -2,16 +2,23 @@ import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import { LoadingButton } from "@mui/lab";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Style.css";
 type Props = {
   Drawer?: boolean;
 };
+type SelectorType = {
+  user: {
+    isAdmin: boolean;
+  };
+};
 
 const Footer = ({ Drawer }: Props) => {
+  const { isAdmin } = useSelector((state: SelectorType) => state?.user);
   return (
     <Box className="FooterContainer">
-      {!Drawer && (
+      {!Drawer && !isAdmin && (
         <Box className="FooterContainerTop">
           <Box className="FooterContainerTopLeft ">
             <Box className="FooterContainerTopLeftHeader">

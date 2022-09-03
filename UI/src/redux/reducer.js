@@ -20,6 +20,8 @@ const initialState = {
   BookingData: {},
   pendingBookings: [],
   history: [],
+  AllUsers: [],
+  AllBookings: [],
 };
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -128,11 +130,16 @@ const userReducer = (state = initialState, action) => {
         ...state,
         history: action.payload,
       };
-    // case type.DELETE_BOOKING_SUCCESS:
-    //   return {
-    //     ...state,
-
-    //   }
+    case type.GET_ALL_USERSUCCESS:
+      return {
+        ...state,
+        AllUsers: action.payload,
+      };
+    case type.GET_ALL_BOOKINGS_USER:
+      return {
+        ...state,
+        AllBookings: action.payload,
+      };
     default:
       return state;
   }
