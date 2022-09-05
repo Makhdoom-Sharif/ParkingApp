@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { Button } from "@mui/material";
 
 type props = {
   Data: {
@@ -18,6 +19,7 @@ type props = {
     from?: number;
     to?: number;
     _id?: string;
+    TotalPlaces?: string;
   }[];
   columns: {
     id:
@@ -30,7 +32,9 @@ type props = {
       | "to"
       | "AreaName"
       | "placeName"
-      | "slotNo";
+      | "slotNo"
+      | "TotalPlaces"
+      | "Action";
     label: string;
     minWidth?: number;
     align?: "right";
@@ -56,6 +60,7 @@ type props = {
 export default function DataTable(props: props) {
   // console.log("Table==>", props.Data);
   const { Data, columns } = props;
+  console.log("==>", columns);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -101,13 +106,16 @@ export default function DataTable(props: props) {
             </TableRow> */}
             <TableRow>
               {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ top: 57, minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
+                <>
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ top: 57, minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                  {/* <TableCell>Action</TableCell> */}
+                </>
               ))}
             </TableRow>
           </TableHead>
@@ -118,22 +126,24 @@ export default function DataTable(props: props) {
                 page * rowsPerPage + rowsPerPage
               ).map((row: any) => {
                 return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={row.createdAt}
-                  >
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
+                          {column.id === "Action" ? (
+                            <Button size="small">View</Button>
+                          ) : (
+                            value
+                          )}
                         </TableCell>
                       );
                     })}
+                    {/* <TableCell>
+                      <Button size="small" key={row._id}>
+                        View
+                      </Button>
+                    </TableCell> */}
                   </TableRow>
                 );
               })}

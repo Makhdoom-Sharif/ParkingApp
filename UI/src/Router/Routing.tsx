@@ -12,6 +12,7 @@ import ViewBookingPage from "../pages/ViewBookingPage";
 import Home from "../pages/Home";
 import AllUsersPage from "../pages/AllUsersPage";
 import AllBookingsPage from "../pages/AllBookingsPage";
+import AllParkingLots from "../pages/AllParkingLots";
 
 type Props = {};
 type SelectorType = {
@@ -55,6 +56,10 @@ const Routing = (props: Props) => {
             <Routes>
               <Route path="/AllUsers" element={<AllUsersPage />}></Route>
               <Route path="/AllBookings" element={<AllBookingsPage />}></Route>
+              <Route
+                path="/AllParkingLots"
+                element={<AllParkingLots />}
+              ></Route>
               <Route path="*" element={<Navigate replace to="/AllUsers" />} />
             </Routes>
           ) : (

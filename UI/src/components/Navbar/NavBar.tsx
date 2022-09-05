@@ -109,7 +109,7 @@ export default function NavBar({}: Props) {
                                 ? "/AllUsers"
                                 : item === "All Bookings"
                                 ? "/AllBookings"
-                                : "/Home"
+                                : "/AllParkingLots"
                             }
                             style={{ textDecoration: "none", color: "inherit" }}
                           >

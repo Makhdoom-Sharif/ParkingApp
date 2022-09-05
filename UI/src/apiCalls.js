@@ -66,20 +66,21 @@ export const GetAllPlaces = async (dispatch, AccessTOKEN, item, uid) => {
   }
 };
 
-export const GetAllAreas = async (dispatch, AccessTOKEN, uid) => {
-  dispatch(GetAllAreasInit());
-  try {
-    const Areas = await axios.create({
-      baseURL: BASE_URL,
-      headers: { token: `Bearer ${AccessTOKEN}` },
-    });
-    const data = await Areas.get(`/area/findAll?id=${uid}`);
-    console.log(data.data);
-    dispatch(GetAllAreasSuccess(data.data));
-  } catch (err) {
-    console.log(err);
-    dispatch(GetAllAreaFail());
-  }
+export const GetAllAreas = async (Data) => {
+  const { accessToken, uid } = Data;
+  // dispatch(GetAllAreasInit());
+  // try {
+  const Areas = await axios.create({
+    baseURL: BASE_URL,
+    headers: { token: `Bearer ${accessToken}` },
+  });
+  return await Areas.get(`/area/findAll?id=${uid}`);
+  // console.log(data.data);
+  // dispatch(GetAllAreasSuccess(data.data));
+  // } catch (err) {
+  //   console.log(err);
+  //   dispatch(GetAllAreaFail());
+  // }
 };
 
 export const GetAllAvailableSlots = async (
@@ -180,10 +181,14 @@ export const GetAllUser = async (Data) => {
 };
 
 export const GetAllBookings = async (Data) => {
-  console.log(Data);
+  // console.log(Data);
   const GetBookings = await axios.create({
     baseURL: BASE_URL,
     headers: { token: `Bearer ${Data}` },
   });
   return await GetBookings.get(`/newbooking/findAll`);
 };
+
+// export const GetAllAreas = async (Data) => {
+
+// }
